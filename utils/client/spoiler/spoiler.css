@@ -1,0 +1,15 @@
+.spoiler a{
+    font-size: 22px;
+    color: #000000;
+    border-bottom: #000000 dashed 2px;
+    text-decoration: none;
+}
+
+.spoiler:hover {
+    cursor: pointer;
+}
+
+.spoiler-text {
+    margin: 15px 25px;
+    //font-size: 18px;
+}
