@@ -2,7 +2,7 @@ Package.describe({
     name: 'malibun23:stack',
     version: '0.0.18',
     summary: 'collection and schema extension',
-    git: '',
+    git: 'https://github.com/vadkasevas/malibun23_stack',
     documentation: null
 });
 
