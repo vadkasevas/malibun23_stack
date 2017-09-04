@@ -1,6 +1,6 @@
 Package.describe({
     name: 'malibun23:stack',
-    version: '0.0.18',
+    version: '0.0.20',
     summary: 'collection and schema extension',
     git: 'https://github.com/vadkasevas/malibun23_stack',
     documentation: null
@@ -143,5 +143,4 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
     api.use('ecmascript');
     api.use('tinytest');
-    //api.addFiles('utils-tests.js');
 });

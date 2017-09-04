@@ -238,6 +238,10 @@ Schemas.namedAutoComplete = function(label,collection,fieldName,schemaOptions,op
     }
 
     methodName = safeGet(options,'method',methodName);
+    var transform = safeGet(options,'transform',function (model) {
+        return {label: safeGet( model,fieldName,''), value: model._id};
+    });
+
     if(Meteor.isServer){
         if(!isset(Meteor.default_server.method_handlers[methodName])) {
             var method = {};
@@ -259,7 +263,7 @@ Schemas.namedAutoComplete = function(label,collection,fieldName,schemaOptions,op
                     :collection.find(condition,findOptions);
 
                 return cursor.fetch().map(function (model) {
-                    return {label: safeGet( model,fieldName,''), value: model._id};
+                    return transform(model);
                 });
             };
             Meteor.methods(method);
