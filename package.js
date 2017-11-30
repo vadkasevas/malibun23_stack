@@ -1,6 +1,6 @@
 Package.describe({
     name: 'malibun23:stack',
-    version: '0.0.20',
+    version: '0.0.25',
     summary: 'collection and schema extension',
     git: 'https://github.com/vadkasevas/malibun23_stack',
     documentation: null
@@ -98,7 +98,7 @@ Package.onUse(function(api) {
     ],['client']);
 
     api.addFiles(['core','MalibunPromise','fileUtils','meteorUtils','esCore','meteorAsync','globals',
-            'MongoLock','lineReader','MalibunHook','WrappedEventEmitter','MalibunStorage'
+            'MongoLock','lineReader','MalibunHook','WrappedEventEmitter','MalibunStorage','MalibunCache'
         ].map(function(name){return 'utils/server/'+name+'.js'}) ,['server']
     );
     api.export([
@@ -109,8 +109,8 @@ Package.onUse(function(api) {
         ['server']
     );
 
-    api.addFiles(['utils/client/Base64.js'],['client']);
-    api.export(['Base64'],['client']);
+    api.addFiles(['utils/client/Base64.js','utils/client/pretty.js'],['client']);
+    api.export(['Base64','pretty'],['client']);
 
     api.addFiles(['httpcall','HttpClient','MultipartFile','utils','waitFreeProxies'
         ,'httpAgent','overrideDns','HttpContext'
@@ -135,6 +135,10 @@ Package.onUse(function(api) {
         'malibuncluster/server/prototype.js',
         'malibuncluster/server/startup.js',
     ], ['server']);
+
+    api.addFiles([
+        'malibuncluster/client/helpers.js'
+    ],['client']);
     api.export(['MalibunServerGroups','Cluster','MalibunServers','MalibunServersModel'],['server', 'client']);
 
 

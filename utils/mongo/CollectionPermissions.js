@@ -72,11 +72,13 @@ CollectionPermissions = class CollectionPermissions{
     checkInsert(userId,doc){
         var self = this;
         if(userId) {
+            var result = false;
             var userIdField = safeGet(this.permissions,'userIdField',null);
             if(userIdField && safeGet(this.permissions,'owner',false) && safeGet(doc,userIdField,null)==userId){
-                return self.checkDoc(doc,this.permissions.owner,'i');
+                result = self.checkDoc(doc,this.permissions.owner,'i');
             }
-            var result = false;
+            if(result)
+                return result;
             _.each(safeGet(this.permissions, 'group', {}), function (groupData,groupName) {
                 if(!result&&Roles.userIsInRole(userId,groupName)){
                     result = self.checkDoc(doc,groupData,'i');
@@ -105,11 +107,14 @@ CollectionPermissions = class CollectionPermissions{
             return true;
         };
         if(userId) {
+            var result = false;
             var userIdField = safeGet(this.permissions,'userIdField',null);
             if(userIdField && safeGet(this.permissions,'owner',false) && safeGet(doc,userIdField,null)==userId){
-                return checkFullDoc(this.permissions.owner);
+                result = checkFullDoc(this.permissions.owner);
             }
-            var result = false;
+            if(result)
+                return result;
+
             _.each(safeGet(this.permissions, 'group', {}), function (groupData,groupName) {
                 if(!result&&Roles.userIsInRole(userId,groupName)){
                     result = checkFullDoc(groupData);

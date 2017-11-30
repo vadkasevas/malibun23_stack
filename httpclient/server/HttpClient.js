@@ -217,18 +217,6 @@ HttpClient.prototype.execute = function(){
         httpOptions.npmRequestOptions[key] = this.npmRequestOptions[key];
 
     httpOptions.headers = this.headers;
-    if(this.proxy){
-        if(_client.proxy.onSuccess) {
-            this.on('success', function () {
-                _client.proxy.onSuccess();
-            });
-        }
-        if(_client.proxy.onError) {
-            this.on('error', function () {
-                _client.proxy.onError();
-            });
-        }
-    }
 
     var callbacks = [];
 
@@ -252,6 +240,21 @@ HttpClient.prototype.execute = function(){
             return result;
         }
     };
+
+    if(this.proxy){
+        if(_client.proxy.onSuccess) {
+            var onSuccess = function () {
+                _client.proxy.onSuccess();
+            };
+            this.on('success', onSuccess);
+        }
+        if(_client.proxy.onError) {
+            this.on('error', function () {
+                _client.proxy.onError();
+            });
+        }
+    }
+
     this.once('response',function(err,content){
         _.each(callbacks,function(callback){
             callback(err,content,_client);
