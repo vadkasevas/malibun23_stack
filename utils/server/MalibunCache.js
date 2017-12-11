@@ -25,7 +25,7 @@ MalibunCache = class MalibunCache extends EventEmitter{
 
         // Set value + timeout on new record
         var record = {value: value};
-        if(typeof ttl === 'number'&&timeout>0){
+        if(typeof ttl === 'number'&&ttl>0){
             record.timeout = Meteor.setTimeout(()=>{
                 this.del(key);
             },ttl);

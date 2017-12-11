@@ -1,6 +1,6 @@
 Package.describe({
     name: 'malibun23:stack',
-    version: '0.0.25',
+    version: '0.0.27',
     summary: 'collection and schema extension',
     git: 'https://github.com/vadkasevas/malibun23_stack',
     documentation: null
@@ -13,7 +13,7 @@ Npm.depends({
     "node-uuid":"1.4.2",
     "safetydance":"0.1.1",
     "path":"0.11.14",
-    "request":"2.72.0",
+    "request":"2.60.0",
     "tough-cookie":"2.2.0",
     "https-proxy-agent":"1.0.0",
     "proxy-agent":"https://github.com/vadkasevas/node-proxy-agent/tarball/42fc91bf96ebf67753cdcdc3aaef2b0fa3dfce36",
@@ -104,7 +104,8 @@ Package.onUse(function(api) {
     api.export([
             'fileExists','dirExists','mkdir','readFileSync','MalibunPromise','meteorAsync','doWhile',
             'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError','MongoLock','MongoLockPromise',
-            'lineReader','safetydance','UUID','MIME', 'CollectionPermissions','MalibunHook','WrappedEventEmitter','MalibunStorage'
+            'lineReader','safetydance','UUID','MIME', 'CollectionPermissions','MalibunHook','WrappedEventEmitter',
+            'MalibunStorage','MalibunCache'
         ],
         ['server']
     );
