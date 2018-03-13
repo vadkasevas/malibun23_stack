@@ -1,6 +1,6 @@
 action = function(target, key, descriptor) {
     descriptor.writable = false;
-    target.actions = target.actions || [];
+    target.actions = target.actions || ['actionIndex','actionCreate','actionUpdate','actionView'];
     if(target.actions.indexOf(key)==-1){
         target.actions.push(key);
     }
@@ -13,7 +13,7 @@ action = function(target, key, descriptor) {
 MalibunController = class MalibunController{
     constructor(collection){
         this.collection = collection;
-        this.actions = this.actions || [];
+        this.actions = this.actions || ['actionIndex','actionCreate','actionUpdate','actionView'];
     }
     get name(){
         return this.collection._name;
@@ -78,7 +78,7 @@ MalibunController = class MalibunController{
 
     }
     /** @returns {MalibunController.MalibunAction}*/
-    @action
+
     actionIndex(){
         var controller = this;
         var template = this.getTemplate('index');
@@ -102,7 +102,7 @@ MalibunController = class MalibunController{
     }
 
     /** @returns {MalibunController.MalibunAction}*/
-    @action
+
     actionView(){
         var controller = this;
         var template = this.getTemplate('view');
@@ -125,7 +125,6 @@ MalibunController = class MalibunController{
     }
 
     /** @returns {MalibunController.MalibunAction}*/
-    @action
     actionUpdate(){
         var controller = this;
         var template = this.getTemplate('update');
@@ -147,7 +146,6 @@ MalibunController = class MalibunController{
     }
 
     /** @returns {MalibunController.MalibunAction}*/
-    @action
     actionCreate(){
         var controller = this;
         var template = this.getTemplate('create');
