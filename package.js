@@ -23,8 +23,7 @@ Npm.depends({
     "cheerio": "0.22.0",
     "random-useragent":"0.3.1",
     "http-proxy": "1.8.1",
-    "portscanner": "1.0.0",
-    "babel-plugin-transform-decorators-legacy": "1.3.4"
+    "portscanner": "1.0.0"
 });
 
 Package.onUse(function(api) {
