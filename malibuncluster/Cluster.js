@@ -32,7 +32,12 @@ MalibunCluster = class MalibunCluster extends EventEmitter{
 
         this.workers = [];
         if(Meteor.isServer) {
-            this.on('worker', function (worker) {
+            this.on('worker', (worker)=>{
+                worker.process.once('exit', (exitCode, signalCode)=>{
+                    this.workers = _.filter(this.workers,(_worker)=>{
+                        return _worker != worker;
+                    })
+                });
                 self.workers.push(worker);
             });
 
@@ -96,7 +101,7 @@ MalibunCluster = class MalibunCluster extends EventEmitter{
 
     log(){
         if(this.isWorker()){
-            var newArgs = ['Воркер:' + self.workerId()].concat( _.toArray(arguments) );
+            var newArgs = ['Воркер:' + this.workerId()].concat( _.toArray(arguments) );
             return console.log.apply(console, newArgs);
         }else{
             return console.log.apply(console, arguments);

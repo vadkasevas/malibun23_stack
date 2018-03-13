@@ -1,6 +1,6 @@
 Package.describe({
     name: 'malibun23:stack',
-    version: '0.0.27',
+    version: '0.0.34',
     summary: 'collection and schema extension',
     git: 'https://github.com/vadkasevas/malibun23_stack',
     documentation: null
@@ -59,13 +59,15 @@ Package.onUse(function(api) {
     api.use('iron:router@1.0.13');
     api.use('monbro:iron-router-breadcrumb@1.0.10');
     api.use('aldeed:autoform@5.8.1','client');
+    api.use('check@1.2.5');
 
     api.addFiles('utils/mongo/CollectionPermissions.js','server');
+
 
     api.addFiles([
             'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
             ,'lib/roles','lib/malibunController'
-            ,'mongo/SchemaBuilder','mongo/MalibunCollection','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress'
+            ,'mongo/SchemaBuilder','mongo/MalibunCollection','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress','lib/MalibunCache'
         ].map(function(name){return 'utils/'+name+'.js'})
         ,['server','client']
     );
@@ -83,12 +85,13 @@ Package.onUse(function(api) {
             'trim','generateRndString','formatRuBoolean','stringify','unicode','htmlspecialchars_decode','htmlspecialchars_encode','capitalize','firstLower','preg_match_all',
             'parse_cookies',
 
-            'SchemaBuilder', 'Schemas','MalibunCollection','MalibunModel','MalibunController','MalibunAction',
+            'SchemaBuilder', 'Schemas','MalibunCollection','MalibunModel','MalibunController','action','MalibunAction',
 
             'MalibunEnum','MalibunEnumItem','MalibunProgress',
 
-            'clearHelperArguments'
+            'clearHelperArguments',
 
+            'MalibunCache'
         ]
         , ['client', 'server']
     );
@@ -98,7 +101,7 @@ Package.onUse(function(api) {
     ],['client']);
 
     api.addFiles(['core','MalibunPromise','fileUtils','meteorUtils','esCore','meteorAsync','globals',
-            'MongoLock','lineReader','MalibunHook','WrappedEventEmitter','MalibunStorage','MalibunCache'
+            'MongoLock','lineReader','MalibunHook','WrappedEventEmitter','MalibunStorage'
         ].map(function(name){return 'utils/server/'+name+'.js'}) ,['server']
     );
     api.export([

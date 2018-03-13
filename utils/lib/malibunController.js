@@ -1,9 +1,19 @@
+action = function(target, key, descriptor) {
+    descriptor.writable = false;
+    target.actions = target.actions || [];
+    if(target.actions.indexOf(key)==-1){
+        target.actions.push(key);
+    }
+    return descriptor;
+};
+
 /**
  * @property {MalibunCollection} collection - коллекция
  */
 MalibunController = class MalibunController{
     constructor(collection){
         this.collection = collection;
+        this.actions = this.actions || [];
     }
     get name(){
         return this.collection._name;
@@ -28,50 +38,47 @@ MalibunController = class MalibunController{
         var route = urlParams.length>0 ? `/${this.name}/${action}/`+urlParams.join('/') : `/${this.name}/${action}`;
         return route;
     }
+
     init(){
         var controller = this;
-        var usedKeys = [];
-        _.each([this,this.__proto__],function(obj){
-            if(!obj) return null;
-            for(var key in obj){
-                var val = obj[key];
-                //console.log('key:',key,'typeof val:',typeof val,'val.name:',val.name);
-                if(typeof val=='function'&&/^action/gi.test(key)&&usedKeys.indexOf(key)==-1){
-                    usedKeys.push(key);
-                    //console.log('key:',key,'val:',val);
-                    var action = val.apply(controller);
-                    if(action&&action instanceof MalibunController.MalibunAction){
-                        action.controller = controller;
-                        if(Meteor.isServer){
-                            if(action.methods){
-                                Meteor.methods(action.methods);
+        _.each(this.actions,(actionName)=>{
+            var f = this[actionName];
+            if(f&&typeof f=='function') {
+                var action = f.apply(controller);
+                if (action && action instanceof MalibunController.MalibunAction) {
+                    action.controller = controller;
+                    if (Meteor.isServer) {
+                        if (action.methods) {
+                            Meteor.methods(action.methods);
+                        }
+                    }
+                    // console.log(action.route,action.serialize());
+                    Router.route(action.route, action.serialize());
+                    if (Meteor.isClient) {
+                        if (action.hooks)
+                            AutoForm.hooks(action.hooks);
+
+                        if (action.events) {
+                            for (var templateName in action.events) {
+                                Template[templateName].events(action.events[templateName]);
                             }
                         }
-                       // console.log(action.route,action.serialize());
-                        Router.route(action.route,action.serialize());
-                        if(Meteor.isClient){
-                            if (action.hooks)
-                                AutoForm.hooks(action.hooks);
 
-                            if (action.events){
-                                for (var templateName in action.events) {
-                                    Template[templateName].events(action.events[templateName]);
-                                }
-                            }
-
-                            if (action.helpers){
-                                _.each(action.helpers,function(_helpers,templateName){
-                                    Template[templateName].helpers(_helpers);
-                                });
-                            }
+                        if (action.helpers) {
+                            _.each(action.helpers, function (_helpers, templateName) {
+                                Template[templateName].helpers(_helpers);
+                            });
                         }
                     }
                 }
             }
         });
 
+
+
     }
     /** @returns {MalibunController.MalibunAction}*/
+    @action
     actionIndex(){
         var controller = this;
         var template = this.getTemplate('index');
@@ -95,6 +102,7 @@ MalibunController = class MalibunController{
     }
 
     /** @returns {MalibunController.MalibunAction}*/
+    @action
     actionView(){
         var controller = this;
         var template = this.getTemplate('view');
@@ -117,6 +125,7 @@ MalibunController = class MalibunController{
     }
 
     /** @returns {MalibunController.MalibunAction}*/
+    @action
     actionUpdate(){
         var controller = this;
         var template = this.getTemplate('update');
@@ -138,6 +147,7 @@ MalibunController = class MalibunController{
     }
 
     /** @returns {MalibunController.MalibunAction}*/
+    @action
     actionCreate(){
         var controller = this;
         var template = this.getTemplate('create');
