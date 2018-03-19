@@ -10,26 +10,24 @@ MalibunPromise = class MalibunPromise{
         }
 
         var me = this;
-        var resolve,reject;
-        if(npmFibers.current){
-            resolve = function () {
-                me.resolve.apply(me, arguments);
-            };
-            reject = function () {
-                me.reject.apply(me, arguments);
-            };
-        }else{
-            resolve = npmFibers(function () {
-                me.resolve.apply(me, arguments);
-            }).run();
-            reject = npmFibers(function () {
-                me.reject.apply(me, arguments);
-            });
-        }
+        var resolve = function () {
+            me.resolve.apply(me, arguments);
+        };
+        var reject = function () {
+            me.reject.apply(me, arguments);
+        };
+
         me._status = PENDING;
         me._onResolved = [];
         me._onRejected = [];
-        fun(resolve, reject, this);
+        if(npmFibers.current) {
+            fun(resolve, reject, this);
+        }else{
+            var self = this;
+            npmFibers(function(){
+                fun(resolve, reject, self);
+            }).run();
+        }
     }
 
     then(onResolved, onRejected) {
