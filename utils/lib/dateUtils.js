@@ -1,23 +1,23 @@
 formatDate = function(date,format){
-    return moment(date).format(format);
+    return moment(date).tz('Europe/Moscow').format(format);
 };
 
 formatRuDateTime = function(date) {
     if(!date)
         return 'Не определено';
-    return moment(date).format('YYYY-MM-DD HH:mm:ss');
+    return moment(date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss');
 };
 
 formatRuDateTimeMS = function(date) {
     if(!date)
         return 'Не определено';
-    return moment(date).format('YYYY-MM-DD HH:mm:ss SSS');
+    return moment(date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss SSS');
 };
 
 formatRuDate = function(date) {
     if(!date)
         return 'Не определено';
-    return moment(date).format('YYYY-MM-DD');
+    return moment(date).tz('Europe/Moscow').format('YYYY-MM-DD');
 };
 
 inDateRange = function(date,dateFrom,dateTo){
