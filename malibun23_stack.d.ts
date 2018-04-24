@@ -88,160 +88,154 @@ interface SubscriptionMember {
 
 }
 
-declare module "meteor/malibun23:stack" {
+interface ISchemas {
+    errors: {
+        required: 'required',
+        minString: 'minString',
+        maxString: 'maxString',
+        minNumber: 'minNumber',
+        maxNumber: 'maxNumber',
+        minDate: 'minDate',
+        maxDate: 'maxDate',
+        badDate: 'badDate',
+        minCount: 'minCount',
+        maxCount: 'maxCount',
+        noDecimal: 'noDecimal',
+        notAllowed: 'notAllowed',
+        expectedString: 'expectedString',
+        expectedNumber: 'expectedNumber',
+        expectedBoolean: 'expectedBoolean',
+        expectedArray: 'expectedArray',
+        expectedObject: 'expectedObject',
+        expectedConstructor: 'expectedConstructor',
+        regEx: 'regEx',
+    };
 
+    autofill(options?: any): object;
 
-    interface ISchemas {
-        errors: {
-            required: 'required',
-            minString: 'minString',
-            maxString: 'maxString',
-            minNumber: 'minNumber',
-            maxNumber: 'maxNumber',
-            minDate: 'minDate',
-            maxDate: 'maxDate',
-            badDate: 'badDate',
-            minCount: 'minCount',
-            maxCount: 'maxCount',
-            noDecimal: 'noDecimal',
-            notAllowed: 'notAllowed',
-            expectedString: 'expectedString',
-            expectedNumber: 'expectedNumber',
-            expectedBoolean: 'expectedBoolean',
-            expectedArray: 'expectedArray',
-            expectedObject: 'expectedObject',
-            expectedConstructor: 'expectedConstructor',
-            regEx: 'regEx',
-        };
+    String(label: string, extOptions?: any): object;
 
-        autofill(options?: any): object;
+    textarea(label: string, extOptions?: any)
 
-        String(label: string, extOptions?: any): object;
+    Number(label: string, extOptions?: any)
 
-        textarea(label: string, extOptions?: any)
+    created(label: string, extOptions?: any)
 
-        Number(label: string, extOptions?: any)
+    date(label: string, extOptions?: any)
 
-        created(label: string, extOptions?: any)
+    updated(label: string, extOptions?: any)
 
-        date(label: string, extOptions?: any)
+    autocomplete(label: string, method: string, extOptions?: any)
 
-        updated(label: string, extOptions?: any)
+    namedAutoComplete(label: string, collection: any, fieldName?: string, schemaOptions?: any, options?: any)
 
-        autocomplete(label: string, method: string, extOptions?: any)
+    Date(label: string, extOptions?: any)
 
-        namedAutoComplete(label: string, collection: any, fieldName?: string, schemaOptions?: any, options?: any)
+    /**Тип - ES код, проверяемый на валидность через esprima, autoform тип - 'code', используется codemirror*/
+    esCode(extOptions: any): {
+        type: 'String', custom: Function, label: string, autoform: { cols: 10, rows: 10, type: 'code' },
+    };
+}
 
-        Date(label: string, extOptions?: any)
+declare var Schemas: ISchemas;
 
-        /**Тип - ES код, проверяемый на валидность через esprima, autoform тип - 'code', используется codemirror*/
-        esCode(extOptions: any): {
-            type: 'String', custom: Function, label: string, autoform: { cols: 10, rows: 10, type: 'code' },
-        };
-    }
+class SimpleSchema {
+    constructor(def: any);
+}
 
-    var Schemas: ISchemas;
+class MalibunCollection {
+    schema: SimpleSchema;
 
-    class SimpleSchema {
-        constructor(def: any);
-    }
+    constructor(name: string,
+                options?: {
+                    modelClass?: any,
+                    permissions?: any,
+                    MONGO_URL?: any
+                });
 
-    class MalibunCollection {
-        schema: SimpleSchema;
+    /**
+     * Подписывается на изменения моделей
+     *@locus Client
+     * @param {any} selector - <p>Условие поиска</p>
+     */
+    subscribe(selector?: any): any;
 
-        constructor(name: string,
-                    options?: {
-                        modelClass?: any,
-                        permissions?: any,
-                        MONGO_URL?: any
-                    });
+    /**Поиск по ID*/
+    byPk(id: string);
 
-        /**
-         * Подписывается на изменения моделей
-         *@locus Client
-         * @param {any} selector - <p>Условие поиска</p>
-         */
-        subscribe(selector?: any): any;
+    /**Вставляет и возвращает документ в коллекцию
+     * @param {any} doc  - <p>Документ для вставки</p>
+     * */
+    insertAndGet(doc: any);
 
-        /**Поиск по ID*/
-        byPk(id: string);
+    publishCursor(userId?: string, condition?: any, options?: any);
 
-        /**Вставляет и возвращает документ в коллекцию
-         * @param {any} doc  - <p>Документ для вставки</p>
-         * */
-        insertAndGet(doc: any);
+    userAuth(pagination: any, skip: number, sub: SubscriptionMember);
 
-        publishCursor(userId?: string, condition?: any, options?: any);
+    adminAuth(pagination: any, skip: number, sub: SubscriptionMember);
 
-        userAuth(pagination: any, skip: number, sub: SubscriptionMember);
+    auth(userId: string, condition?: any, options?: any);
 
-        adminAuth(pagination: any, skip: number, sub: SubscriptionMember);
+    static ready(names: any, callback: Function);
 
-        auth(userId: string, condition?: any, options?: any);
+    _ensureIndex(keys: any, options: { unique?: boolean });
+}
 
-        static ready(names: any, callback: Function);
+class MalibunModel {
+    collection: MalibunCollection;
 
-        _ensureIndex(keys: any, options: { unique?: boolean });
-    }
+    constructor(doc: any);
 
-    class MalibunModel {
-        collection: MalibunCollection;
+    update(modifier: any);
 
-        constructor(doc: any);
+    remove();
+}
 
-        update(modifier: any);
+class MalibunEnumItem {
+    key: string;
+    label: string;
 
-        remove();
-    }
+    constructor(key: string, label: string);
 
-    class MalibunEnumItem {
-        key: string;
-        label: string;
+    valueOf(): string;
 
-        constructor(key: string, label: string);
+    toString(): String;
+}
 
-        valueOf(): string;
+class MalibunEnum {
+    constructor(data: any);
 
-        toString(): String;
-    }
+    toSimpleSchema(options?: any): SimpleSchema;
 
-    class MalibunEnum {
-        constructor(data: any);
+    first(): MalibunEnumItem;
 
-        toSimpleSchema(options?: any): SimpleSchema;
+    exclude(keys: any): MalibunEnum;
+}
 
-        first(): MalibunEnumItem;
+class MalibunCache {
+    has(key: string): boolean;
 
-        exclude(keys: any): MalibunEnum;
-    }
+    set(key: string, value: any, ttl: number);
 
-    class MalibunCache {
-        has(key: string): boolean;
+    get(key: string): any;
 
-        set(key: string, value: any, ttl: number);
+    del(key: string);
 
-        get(key: string): any;
+    clear();
 
-        del(key: string);
+    size(): number;
 
-        clear();
+    debug(): any;
+}
 
-        size(): number;
+class MalibunController {
+    name: string;
 
-        debug(): any;
-    }
+    constructor(collection: MalibunCollection);
 
-    class MalibunController {
-        name: string;
+    getTemplate(action: any): string;
 
-        constructor(collection: MalibunCollection);
+    getRoute(action: any, urlParams?: any);
 
-        getTemplate(action: any): string;
-
-        getRoute(action: any, urlParams?: any);
-
-        init();
-    }
-
-
+    init();
 }
