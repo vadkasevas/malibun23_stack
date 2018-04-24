@@ -1,3 +1,5 @@
+import {Roles} from 'meteor/alanning:roles';
+
 Roles.ROLE_ADMIN = 'admin';
 Roles.ROLE_COMPANY = 'company';
 Roles.ROLE_GUEST = 'guest';

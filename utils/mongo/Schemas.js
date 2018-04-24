@@ -345,5 +345,33 @@ Schemas.Date = function(label,extOptions){
     return result;
 };
 
+var schemaMessage = function(msg){
+    var key = md5(msg);
+    SimpleSchema.messages({
+        [key]:msg
+    });
+    return key;
+};
 
+var esprm = Meteor.isServer ? Npm.require('esprima') : esprima;
+
+Schemas.esCode = function(extOptions){
+    var result = {
+        type:String,
+        autoform:{cols:10,rows:10,type:'code'},
+        custom(){
+            var esCode = this.value;
+            if(!esCode)
+                return false;
+
+            try{
+                esprm.parseScript(esCode,{tolerant:true});
+                return true;
+            }catch(e){
+                return schemaMessage(e.message);
+            }
+        }
+    };
+    return addOptions(result,extOptions);
+}
 

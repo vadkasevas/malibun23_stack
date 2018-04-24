@@ -1,6 +1,6 @@
 Package.describe({
     name: 'malibun23:stack',
-    version: '0.0.34',
+    version: '0.0.35',
     summary: 'collection and schema extension',
     git: 'https://github.com/vadkasevas/malibun23_stack',
     documentation: null
@@ -23,7 +23,8 @@ Npm.depends({
     "cheerio": "0.22.0",
     "random-useragent":"0.3.1",
     "http-proxy": "1.8.1",
-    "portscanner": "1.0.0"
+    "portscanner": "1.0.0",
+    "esprima": "4.0.0"
 });
 
 Package.onUse(function(api) {
@@ -60,9 +61,11 @@ Package.onUse(function(api) {
     api.use('monbro:iron-router-breadcrumb@1.0.10');
     api.use('aldeed:autoform@5.8.1','client');
     api.use('check@1.2.5');
-
+    api.use('aldeed:simple-schema@1.5.3');
     api.addFiles('utils/mongo/CollectionPermissions.js','server');
 
+
+    api.addFiles(['utils/client/esprima.min.js'],['client']);
 
     api.addFiles([
             'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
@@ -149,6 +152,8 @@ Package.onUse(function(api) {
 });
 
 Package.onTest(function(api) {
-    api.use('ecmascript');
-    api.use('tinytest');
+    api.use('malibun23:stack');
+    api.use(['ecmascript', 'cultofcoders:mocha','practicalmeteor:chai','aldeed:simple-schema@1.5.3']);
+
+    api.addFiles('tests/schemas.js');
 });
