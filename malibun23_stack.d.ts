@@ -121,6 +121,8 @@ interface ISchemas {
     autocomplete(label:string,method:string,extOptions?:any)
     namedAutoComplete(label:string,collection:any,fieldName?:string,schemaOptions?:any,options?:any)
     Date(label:string,extOptions?:any)
+    /**Тип - ES код, проверяемый на валидность через esprima, autoform тип - 'code', используется codemirror*/
+    esCode(extOptions:any);
 }
 declare var Schemas:ISchemas;
 
