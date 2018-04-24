@@ -166,7 +166,7 @@ class MalibunCollection{
 
     static ready(names:any,callback:Function);
 
-
+    _ensureIndex(keys:any,options:{unique?:boolean});
 }
 
 class MalibunModel{
