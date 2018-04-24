@@ -1,0 +1,11 @@
+{
+  "name": "malibun23_stack",
+  "version": "0.0.35",
+  "scripts": {
+    "test": "meteor test-packages ./ --driver-package cultofcoders:mocha"
+  },
+  "dependencies": {
+    
+  }
+}
+

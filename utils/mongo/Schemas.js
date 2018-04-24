@@ -356,22 +356,28 @@ var schemaMessage = function(msg){
 var esprm = Meteor.isServer ? Npm.require('esprima') : esprima;
 
 Schemas.esCode = function(extOptions){
-    var result = {
+    var origCustom = extOptions.custom;
+    var result = addOptions({
         type:String,
         autoform:{cols:10,rows:10,type:'code'},
-        custom(){
-            var esCode = this.value;
-            if(!esCode)
-                return false;
+    },extOptions);
 
-            try{
-                esprm.parseScript(esCode,{tolerant:true});
-                return true;
-            }catch(e){
-                return schemaMessage(e.message);
-            }
+    result.custom=function(){
+        if(origCustom){
+            var origResult = origCustom.apply(this);
+            if(origResult!==true)
+                return origResult;
+        }
+        var esCode = this.value;
+        if(!esCode)
+            return true;
+        try{
+            esprm.parseScript(esCode,{tolerant:true});
+            return true;
+        }catch(e){
+            return schemaMessage(e.message);
         }
     };
-    return addOptions(result,extOptions);
+    return result;
 }
 

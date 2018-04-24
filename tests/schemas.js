@@ -34,5 +34,28 @@ if(Meteor.isServer) {
                 }
             });
 
+            it(`esCode custom`, function(done){
+                var schemaMessage = function(msg){
+                    var key = md5(msg);
+                    SimpleSchema.messages({
+                        [key]:msg
+                    });
+                    return key;
+                };
+
+                var schema = new SimpleSchema({
+                    code:Schemas.esCode({label:'JS код',custom(){
+                        return schemaMessage('Custom error');
+                        }})
+                });
+                try {
+                    schema.validate({
+                        code:'this.test;'
+                    });
+                    return done(new Error('Custom error not working'));
+                }catch(e){
+                    return done();
+                }
+            });
         });
 }
