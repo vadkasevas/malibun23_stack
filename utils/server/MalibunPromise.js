@@ -153,6 +153,13 @@ MalibunPromise = class MalibunPromise{
         });
     };
 
+    sync(){
+        var f = Meteor.wrapAsync((cb)=>{
+            this.finally(cb);
+        });
+        return f();
+    }
+    
     isResolved() {
         return this._status != PENDING;
     };
