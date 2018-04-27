@@ -20,13 +20,13 @@ MalibunCache = class MalibunCache extends EventEmitter{
         if(typeof key === 'undefined') throw new Error('Required argument key is undefined');
         var oldRecord = this.has(key)? this.store[key] : undefined;
         if(oldRecord && oldRecord.timeout){
-            Meteor.clearTimeout(oldRecord.timeout);
+            clearTimeout(oldRecord.timeout);
         }
 
         // Set value + timeout on new record
         var record = {value: value};
         if(typeof ttl === 'number'&&ttl>0){
-            record.timeout = Meteor.setTimeout(()=>{
+            record.timeout = setTimeout(()=>{
                 this.del(key);
             },ttl);
         }
@@ -64,7 +64,7 @@ MalibunCache = class MalibunCache extends EventEmitter{
         if(typeof key === 'undefined') throw new Error('Required argument key is undefined');
         if(this.has(key)){
             if(this.store[key].timeout){
-                Meteor.clearTimeout(this.store[key].timeout);
+                clearTimeout(this.store[key].timeout);
             }
             delete this.store[key];
             this.emit('del', key);
