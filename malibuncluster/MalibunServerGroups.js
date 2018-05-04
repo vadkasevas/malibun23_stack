@@ -1,7 +1,8 @@
 /**
  * @property {string}
  * */
-MalibunServerGroupsModel = class MalibunServerGroupsModel extends MalibunModel{
+@component
+class MalibunServerGroupsModel extends MalibunModel{
     /**@returns {MalibunServersModel[]}*/
     get servers(){
         return MalibunServers.find({group_id:this._id}).fetch();

@@ -1,4 +1,5 @@
-CollectionPermissions = class CollectionPermissions{
+@component
+class CollectionPermissions{
     constructor(collection,permissions){
         this.collection=collection;
         this.permissions=permissions;

@@ -6,7 +6,8 @@ var collections = {};
 /**@extends {Mongo.Collection}
  * @property {SimpleSchema} schema
  **/
-MalibunCollection = class MalibunCollection extends Mongo.Collection{
+@component
+class MalibunCollection extends Mongo.Collection{
     constructor(name,options){
         options = options || {};
         if(options.modelClass){

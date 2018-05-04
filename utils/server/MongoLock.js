@@ -1,4 +1,5 @@
-MongoLock = class MongoLock extends EventEmitter{
+@component
+class MongoLock extends EventEmitter{
     constructor(){
         super();
         this.setMaxListeners(0);

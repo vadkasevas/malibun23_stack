@@ -1,4 +1,5 @@
-MalibunStorageClass = class MalibunStorageClass{
+@component
+class MalibunStorageClass{
     get path(){
         if(process.env.STORAGE_PATH){
             return process.env.STORAGE_PATH;

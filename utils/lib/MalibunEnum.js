@@ -1,5 +1,6 @@
 /**@property {object} toSimpleSchema*/
-MalibunEnum = class MalibunEnum{
+@component
+class MalibunEnum{
 
     constructor(_data){
         var data = [];

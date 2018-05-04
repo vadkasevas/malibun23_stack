@@ -1,4 +1,5 @@
-MalibunHookClass = class MalibunHookClass extends EventEmitter{
+@component
+class MalibunHookClass extends EventEmitter{
     constructor(){
         super();
         this.setMaxListeners(0);

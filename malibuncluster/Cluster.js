@@ -1,4 +1,5 @@
-MalibunCluster = class MalibunCluster extends EventEmitter{
+@component
+class MalibunCluster extends EventEmitter{
     constructor(){
         super();
         this.setMaxListeners(0);
