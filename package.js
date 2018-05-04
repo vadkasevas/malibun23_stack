@@ -68,13 +68,14 @@ Package.onUse(function(api) {
     api.addFiles(['utils/client/esprima.min.js'],['client']);
 
     api.addFiles([
-            'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
+            'lib/component','lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
             ,'lib/roles','lib/malibunController'
             ,'mongo/SchemaBuilder','mongo/MalibunCollection','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress','lib/MalibunCache'
         ].map(function(name){return 'utils/'+name+'.js'})
         ,['server','client']
     );
     api.export([
+            'component',
             'Roles','__','inspect','safe',
             'formatRuDateTime','formatRuDateTimeMS','formatRuDate','inDateRange','getNowDateRound','getNowTime','deserializeDate','deserializeDates',
             'throttle',

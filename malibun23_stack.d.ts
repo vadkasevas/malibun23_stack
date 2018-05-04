@@ -65,7 +65,7 @@ declare class HttpClient extends EventEmitter {
         httpMethod?: string,
         postData?: object
         files?: object[],
-        formContentType: string,
+        formContentType?: string,
         followLocation?: boolean,
         timeout?: number
         gzip?: boolean
@@ -144,93 +144,15 @@ declare class HttpContext extends EventEmitter{
 
 
 interface SubscriptionMember {
-
-    /**
-     * Call inside the publish function.  Informs the subscriber that a document has been added to the record set.
-     *
-     * @locus Server
-     *
-     * @param {String} collection - <p>The name of the collection that contains the new document.</p>
-     * @param {String} id - <p>The new document's ID.</p>
-     * @param {Object} fields - <p>The fields in the new document.  If <code>_id</code> is present it is ignored.</p>
-     */
     added(collection:string, id:string, fields:any):any;
-
-
-    /**
-     * Call inside the publish function.  Informs the subscriber that a document in the record set has been modified.
-     *
-     * @locus Server
-     *
-     * @param {String} collection - <p>The name of the collection that contains the changed document.</p>
-     * @param {String} id - <p>The changed document's ID.</p>
-     * @param {Object} fields - <p>The fields in the document that have changed, together with their new values.  If a field is not present in <code>fields</code> it was left unchanged; if it is present in <code>fields</code> and has a value of <code>undefined</code> it was removed from the document.  If <code>_id</code> is present it is ignored.</p>
-     */
     changed(collection:string, id:string, fields:any):any;
-
-
-    /**
-     * Access inside the publish function. The incoming [connection](#meteor_onconnection) for this subscription.
-     *
-     * @locus Server
-     */
     connection:any;
-
-
-    /**
-     * Call inside the publish function.  Stops this client's subscription, triggering a call on the client to the `onStop` callback passed to [`Meteor.subscribe`](#meteor_subscribe), if any. If `error` is not a [`Meteor.Error`](#meteor_error), it will be [sanitized](#meteor_error).
-     *
-     * @locus Server
-     *
-     * @param {Error} error - <p>The error to pass to the client.</p>
-     */
     error(error:any):any;
-
-
-    /**
-     * Call inside the publish function.  Registers a callback function to run when the subscription is stopped.
-     *
-     * @locus Server
-     *
-     * @param {function} func - <p>The callback function</p>
-     */
     onStop(func:Function):any;
-
-
-    /**
-     * Call inside the publish function.  Informs the subscriber that an initial, complete snapshot of the record set has been sent.  This will trigger a call on the client to the `onReady` callback passed to  [`Meteor.subscribe`](#meteor_subscribe), if any.
-     *
-     * @locus Server
-     */
     ready():any;
-
-
-    /**
-     * Call inside the publish function.  Informs the subscriber that a document has been removed from the record set.
-     *
-     * @locus Server
-     *
-     * @param {String} collection - <p>The name of the collection that the document has been removed from.</p>
-     * @param {String} id - <p>The ID of the document that has been removed.</p>
-     */
     removed(collection:string, id:string):any;
-
-
-    /**
-     * Call inside the publish function.  Stops this client's subscription and invokes the client's `onStop` callback with no error.
-     *
-     * @locus Server
-     */
     stop():any;
-
-
-    /**
-     * Access inside the publish function. The id of the logged-in user, or `null` if no user is logged in.
-     *
-     * @locus Server
-     */
     userId:any;
-
 }
 
 interface ISchemas {

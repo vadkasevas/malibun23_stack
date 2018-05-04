@@ -211,7 +211,7 @@ MalibunController.MalibunAction = class MalibunAction{
             this.title = function(){
                 this.router.options.noCaps = true;
                 var data = this.data();
-                var result = typeof(newOpts.title)=='string' ? newOpts.title:newOpts.title.apply(this,[data]);
+                var result = _.isString(newOpts.title) ? newOpts.title:newOpts.title.apply(this,[data]);
                 var tmpResult = result;
                 var params = this.params;
                 var matches;
