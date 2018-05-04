@@ -1,4 +1,4 @@
-@component
+//@component
 class MalibunCluster extends EventEmitter{
     constructor(){
         super();

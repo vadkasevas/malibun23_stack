@@ -8,7 +8,7 @@
  * @property {object} data
  * @property {string} root
  */
-@component
+//@component
 class MalibunStatsModel extends MalibunModel{
 
 };

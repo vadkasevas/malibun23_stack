@@ -1,4 +1,4 @@
-@component
+//@component
 class MalibunProgress{
     constructor(hashOrAttributes){
         this.attributes = {};

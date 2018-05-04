@@ -1,7 +1,7 @@
 /**
  * @property {string}
  * */
-@component
+//@component
 class MalibunServerGroupsModel extends MalibunModel{
     /**@returns {MalibunServersModel[]}*/
     get servers(){

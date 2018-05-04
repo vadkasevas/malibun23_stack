@@ -1,5 +1,5 @@
 /**@property {object} toSimpleSchema*/
-@component
+//@component
 class MalibunEnum{
 
     constructor(_data){
