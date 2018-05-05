@@ -1,4 +1,4 @@
-//@component
+@component
 class MalibunCache extends EventEmitter{
     constructor(){
         super();

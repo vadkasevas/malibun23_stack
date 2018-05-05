@@ -7,7 +7,7 @@
  * @property {string} real_url
  * @property {string} group_id
  **/
-//@component
+@component
 class MalibunServersModel extends MalibunModel{
     /**@returns {ServerConfigsModel[]}*/
     get serverConfigs(){

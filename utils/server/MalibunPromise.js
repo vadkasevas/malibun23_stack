@@ -2,7 +2,7 @@ var PENDING = 0,
     RESOLVED = 1,
     REJECTED = 2;
 
-//@component
+@component
 class MalibunPromise{
     constructor(fun){
         if (typeof fun !== 'function') {

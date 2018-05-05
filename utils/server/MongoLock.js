@@ -1,4 +1,4 @@
-//@component
+@component
 class MongoLock extends EventEmitter{
     constructor(){
         super();

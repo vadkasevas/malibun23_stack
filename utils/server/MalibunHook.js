@@ -1,4 +1,4 @@
-//@component
+@component
 class MalibunHookClass extends EventEmitter{
     constructor(){
         super();

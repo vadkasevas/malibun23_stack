@@ -24,8 +24,7 @@ Npm.depends({
     "random-useragent":"0.3.1",
     "http-proxy": "1.8.1",
     "portscanner": "1.0.0",
-    "esprima": "4.0.0",
-    "babel-plugin-transform-decorators-legacy": "1.3.4"
+    "esprima": "4.0.0"
 });
 
 Package.onUse(function(api) {
@@ -63,17 +62,13 @@ Package.onUse(function(api) {
     api.use('aldeed:autoform@5.8.1','client');
     api.use('check@1.2.5');
     api.use('aldeed:simple-schema@1.5.3');
-    api.addFiles(['utils/lib/component.js'],['server','client']);
-
-    api.export(['component'],['client','server']);
-
-    api.addFiles('utils/mongo/CollectionPermissions.js',['client','server']);
+    api.addFiles('utils/mongo/CollectionPermissions.js','server');
 
 
     api.addFiles(['utils/client/esprima.min.js'],['client']);
 
     api.addFiles([
-            ,'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
+            'lib/component','lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
             ,'lib/roles','lib/malibunController'
             ,'mongo/SchemaBuilder','mongo/MalibunCollection','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress','lib/MalibunCache'
         ].map(function(name){return 'utils/'+name+'.js'})

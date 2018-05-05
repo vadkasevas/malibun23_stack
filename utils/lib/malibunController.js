@@ -10,7 +10,7 @@ action = function(target, key, descriptor) {
 /**
  * @property {MalibunCollection} collection - коллекция
  */
-//@component
+@component
 class MalibunController{
     constructor(collection){
         this.collection = collection;

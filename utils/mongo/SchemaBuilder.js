@@ -20,7 +20,7 @@ var schemaDefinition = {                                                        
     trim: Match.Optional(Boolean)                                                                                        // 23
 };
 
-//@component
+@component
 class SchemaBuilder{
 
     constructor(schema){
