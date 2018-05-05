@@ -1,9 +1,4 @@
-var component = function(claz){
-    //this[claz.name] = claz;
-    return claz;
-}
-@component
-class CollectionPermissions{
+export class CollectionPermissions{
     constructor(collection,permissions){
         this.collection=collection;
         this.permissions=permissions;

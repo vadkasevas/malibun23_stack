@@ -63,22 +63,22 @@ Package.onUse(function(api) {
     api.use('aldeed:autoform@5.8.1','client');
     api.use('check@1.2.5');
     api.use('aldeed:simple-schema@1.5.3');
-    api.addFiles(['utils/lib/component.js'],['server','client']);
 
-    api.export(['component'],['client','server']);
-
-    api.addFiles('utils/mongo/CollectionPermissions.js',['client','server']);
-
+    api.mainModule('utils/lib/component.js');
+    api.mainModule('utils/mongo/CollectionPermissions.js');
 
     api.addFiles(['utils/client/esprima.min.js'],['client']);
 
     api.addFiles([
             ,'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
             ,'lib/roles','lib/malibunController'
-            ,'mongo/SchemaBuilder','mongo/MalibunCollection','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress','lib/MalibunCache'
+            ,'mongo/SchemaBuilder','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress','lib/MalibunCache'
         ].map(function(name){return 'utils/'+name+'.js'})
         ,['server','client']
     );
+
+    api.mainModule('utils/mongo/MalibunCollection.js');
+
     api.export([
             'component',
             'Roles','__','inspect','safe',
@@ -94,7 +94,7 @@ Package.onUse(function(api) {
             'trim','generateRndString','formatRuBoolean','stringify','unicode','htmlspecialchars_decode','htmlspecialchars_encode','capitalize','firstLower','preg_match_all',
             'parse_cookies',
 
-            'SchemaBuilder', 'Schemas','MalibunCollection','MalibunModel','MalibunController','action','MalibunAction',
+            'SchemaBuilder', 'Schemas','MalibunController','action','MalibunAction',
 
             'MalibunEnum','MalibunEnumItem','MalibunProgress',
 
@@ -134,12 +134,14 @@ Package.onUse(function(api) {
     api.export(['HttpClient','MultipartFile','HttpContext','HtmlForm','RecaptchaSolver',
         'AutoencodingHttpClient','google','UserAgent','Antigate','RuCaptcha'],['server']);
 
-    api.addFiles(['stat/MalibunStats.js','stat/schema.js'], ['server', 'client']);
+    api.mainModule(['stat/MalibunStats.js','stat/schema.js'],['server']);
+
     api.addFiles(['stat/startup.js'], ['server']);
-    api.export(['MalibunStats','MalibunStatsModel'],['server']);
+
+    api.mainModule('malibuncluster/MalibunServers.js');
 
     api.addFiles([
-        'malibuncluster/MalibunServerGroups.js', 'malibuncluster/MalibunServers.js','malibuncluster/Cluster.js',
+        'malibuncluster/MalibunServerGroups.js','malibuncluster/Cluster.js',
     ], ['server', 'client']);
 
     api.addFiles([
@@ -152,7 +154,7 @@ Package.onUse(function(api) {
     api.addFiles([
         'malibuncluster/client/helpers.js'
     ],['client']);
-    api.export(['MalibunServerGroups','Cluster','MalibunServers','MalibunServersModel'],['server', 'client']);
+    api.export(['MalibunServerGroups','Cluster'],['server', 'client']);
 
 
 });

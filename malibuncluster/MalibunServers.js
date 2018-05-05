@@ -7,15 +7,14 @@
  * @property {string} real_url
  * @property {string} group_id
  **/
-//@component
-class MalibunServersModel extends MalibunModel{
+export class MalibunServersModel extends MalibunModel{
     /**@returns {ServerConfigsModel[]}*/
     get serverConfigs(){
         return ServerConfigs.find({server_id:this._id}).fetch();
     }
 };
 
-MalibunServers = new MalibunCollection('malibunServers',{
+var MalibunServers = new MalibunCollection('malibunServers',{
     modelClass:MalibunServersModel,
     permissions:{
         group:{
@@ -41,3 +40,5 @@ MalibunServers.schemaDef = {
     total:{type:Number,optional:true,defaultValue:null,label:'Всего'},
 };
 MalibunServers.schema = new SimpleSchema(MalibunServers.schemaDef);
+
+export {MalibunServers};

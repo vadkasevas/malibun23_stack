@@ -1,3 +1,5 @@
+import {MalibunCollection,MalibunModel} from '/utils/mongo/MalibunCollection';
+
 /**
  * @property {string} type
  * @property {string} label
@@ -8,8 +10,7 @@
  * @property {object} data
  * @property {string} root
  */
-//@component
-class MalibunStatsModel extends MalibunModel{
+export class MalibunStatsModel extends MalibunModel{
 
 };
 
@@ -21,7 +22,7 @@ class MalibunStatsModel extends MalibunModel{
  * @returns MalibunStatsModel
  */
 
-MalibunStats = new MalibunCollection('malibunStats',{
+var MalibunStats = new MalibunCollection('malibunStats',{
     modelClass:MalibunStatsModel,
     permissions:{
         group:{
@@ -76,3 +77,5 @@ MalibunStats.create = function(type,label,data){
     }
 };
 MalibunStats.types = {};
+
+export {MalibunStats};
