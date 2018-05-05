@@ -1,17 +1,15 @@
-import {MalibunCollection,MalibunModel} from "../utils/mongo/MalibunCollection";
-import {MalibunServers} from "./MalibunServers";
-
 /**
  * @property {string}
  * */
-export class MalibunServerGroupsModel extends MalibunModel{
+//@component
+class MalibunServerGroupsModel extends MalibunModel{
     /**@returns {MalibunServersModel[]}*/
     get servers(){
         return MalibunServers.find({group_id:this._id}).fetch();
     }
 };
 
-var MalibunServerGroups = new MalibunCollection('malibunServerGroups',{
+MalibunServerGroups = new MalibunCollection('malibunServerGroups',{
     modelClass:MalibunServerGroupsModel,
     permissions:{
         group:{
@@ -31,7 +29,5 @@ var MalibunServerGroups = new MalibunCollection('malibunServerGroups',{
 var def = {
     name:{type:String,label:'Имя',unique:true},
     isDefault:{type:Boolean,optional:true,defaultValue:false,label:'По умолчанию (сюда автоматически добавляются юзеры в момент создания аккаунта)'}
-}
+};
 MalibunServerGroups.schema = new SimpleSchema(def);
-
-export {MalibunServerGroups};

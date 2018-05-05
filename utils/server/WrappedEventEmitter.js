@@ -1,5 +1,5 @@
 //@component
-export class WrappedEventEmitter extends EventEmitter{
+class WrappedEventEmitter extends EventEmitter{
     emit(){
         var args = arguments;
         var self = this;

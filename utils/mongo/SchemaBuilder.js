@@ -1,6 +1,27 @@
 import { Match } from 'meteor/check'
 
-export class SchemaBuilder{
+var schemaDefinition = {                                                                                               // 6
+    type: Match.Any,                                                                                                     // 7
+    label: Match.Optional(Match.OneOf(String, Function)),                                                                // 8
+    optional: Match.Optional(Match.OneOf(Boolean, Function)),                                                            // 9
+    min: Match.Optional(Match.OneOf(Number, Date, Function)),                                                            // 10
+    max: Match.Optional(Match.OneOf(Number, Date, Function)),                                                            // 11
+    minCount: Match.Optional(Match.OneOf(Number, Function)),                                                             // 12
+    maxCount: Match.Optional(Match.OneOf(Number, Function)),                                                             // 13
+    allowedValues: Match.Optional(Match.OneOf([Match.Any], Function)),                                                   // 14
+    decimal: Match.Optional(Boolean),                                                                                    // 15
+    exclusiveMax: Match.Optional(Boolean),                                                                               // 16
+    exclusiveMin: Match.Optional(Boolean),                                                                               // 17
+    regEx: Match.Optional(Match.OneOf(RegExp, [RegExp])),                                                                // 18
+    custom: Match.Optional(Function),                                                                                    // 19
+    blackbox: Match.Optional(Boolean),                                                                                   // 20
+    autoValue: Match.Optional(Function),                                                                                 // 21
+    defaultValue: Match.Optional(Match.Any),                                                                             // 22
+    trim: Match.Optional(Boolean)                                                                                        // 23
+};
+
+//@component
+class SchemaBuilder{
 
     constructor(schema){
         this._defs = {};

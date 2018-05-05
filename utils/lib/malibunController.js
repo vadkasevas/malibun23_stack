@@ -1,4 +1,4 @@
-var action = function(target, key, descriptor) {
+action = function(target, key, descriptor) {
     descriptor.writable = false;
     target.actions = target.actions || ['actionIndex','actionCreate','actionUpdate','actionView'];
     if(target.actions.indexOf(key)==-1){
@@ -6,12 +6,12 @@ var action = function(target, key, descriptor) {
     }
     return descriptor;
 };
-export {action};
+
 /**
  * @property {MalibunCollection} collection - коллекция
  */
-
-export class MalibunController{
+//@component
+class MalibunController{
     constructor(collection){
         this.collection = collection;
         this.actions = this.actions || ['actionIndex','actionCreate','actionUpdate','actionView'];
@@ -300,6 +300,5 @@ MalibunController.MalibunAction = class MalibunAction{
 MalibunController.current = this;
 MalibunController.MalibunAction.baseTitle = 'КИК | ';
 MalibunController.MalibunAction.current = null;
-var MalibunAction = MalibunController.MalibunAction;
-export {MalibunAction};
+MalibunAction = MalibunController.MalibunAction;
 

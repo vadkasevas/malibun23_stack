@@ -1,5 +1,3 @@
-import {MalibunPromise} from "./MalibunPromise";
-
 npmAsync = Npm.require('async');
 meteorAsync = {
     parallel: function (fs, callback) {
