@@ -1,13 +1,13 @@
-const EmptyCollection = new Mongo.Collection('emptyCollection');
+EmptyCollection = new Mongo.Collection('emptyCollection');
 Meteor.emptyCursor = EmptyCollection.find();
-export {EmptyCollection};
+
 var collections = {};
 
 /**@extends {Mongo.Collection}
  * @property {SimpleSchema} schema
  **/
 //@component
-export class MalibunCollection extends Mongo.Collection{
+class MalibunCollection extends Mongo.Collection{
     constructor(name,options){
         options = options || {};
         if(options.modelClass){
@@ -203,7 +203,7 @@ MalibunCollection.ready = function(names,cb){
 /**
  * @property {string} _id - ID в коллекции
  */
-export class MalibunModel{
+MalibunModel = class MalibunModel{
     constructor(doc){
         _.extend(this, doc);
     }

@@ -1,4 +1,4 @@
-export function component(claz){
+component = function(claz){
     this[claz.name] = claz;
     return claz;
 }
