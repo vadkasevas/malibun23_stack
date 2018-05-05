@@ -1,3 +1,5 @@
+import {MalibunStats} from './MalibunStats';
+
 Meteor.afterStartup(function(){
     return;
     MalibunStats._ensureIndex({'expires': 1});

@@ -1,5 +1,6 @@
-//@component
-class MongoLock extends EventEmitter{
+import {MalibunPromise} from "./MalibunPromise";
+
+export class MongoLock extends EventEmitter{
     constructor(){
         super();
         this.setMaxListeners(0);
@@ -139,7 +140,7 @@ class MongoLock extends EventEmitter{
 };
 MongoLock.Collection = new Mongo.Collection('mongoLocks');
 
-MongoLockPromise = function (key,cb,instance) {
+var MongoLockPromise = function (key,cb,instance) {
     instance = instance || MongoLock.getInstance();
     return new MalibunPromise((_resolve,_reject,promise)=>{
          instance.lock(key).finally((err,result)=>{
@@ -152,7 +153,7 @@ MongoLockPromise = function (key,cb,instance) {
     });
 };
 
-
+export {MongoLockPromise};
 
 
 

@@ -1,3 +1,5 @@
+import {CollectionPermissions} from './CollectionPermissions';
+
 const EmptyCollection = new Mongo.Collection('emptyCollection');
 Meteor.emptyCursor = EmptyCollection.find();
 export {EmptyCollection};

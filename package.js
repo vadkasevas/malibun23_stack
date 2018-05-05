@@ -65,14 +65,19 @@ Package.onUse(function(api) {
     api.use('aldeed:simple-schema@1.5.3');
 
     api.mainModule('utils/lib/component.js');
-    api.mainModule('utils/mongo/CollectionPermissions.js');
+    api.mainModule('utils/lib/MalibunCache.js');
+    api.mainModule('utils/lib/MalibunEnum.js');
+    api.mainModule('utils/lib/MalibunProgress.js');
+    api.mainModule('utils/lib/MalibunController.js');
+    api.mainModule('utils/mongo/SchemaBuilder.js');
+    api.mainModule('utils/server/MongoLock.js');
+    api.mainModule('utils/server/WrappedEventEmitter.js');
 
     api.addFiles(['utils/client/esprima.min.js'],['client']);
 
     api.addFiles([
             ,'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
-            ,'lib/roles','lib/malibunController'
-            ,'mongo/SchemaBuilder','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress','lib/MalibunCache'
+            ,'lib/roles','mongo/Schemas'
         ].map(function(name){return 'utils/'+name+'.js'})
         ,['server','client']
     );
@@ -92,15 +97,9 @@ Package.onUse(function(api) {
             'trimSlashes','getRandHash','joinObject',
 
             'trim','generateRndString','formatRuBoolean','stringify','unicode','htmlspecialchars_decode','htmlspecialchars_encode','capitalize','firstLower','preg_match_all',
-            'parse_cookies',
+            'parse_cookies', 'Schemas',
 
-            'SchemaBuilder', 'Schemas','MalibunController','action','MalibunAction',
-
-            'MalibunEnum','MalibunEnumItem','MalibunProgress',
-
-            'clearHelperArguments',
-
-            'MalibunCache'
+            'clearHelperArguments'
         ]
         , ['client', 'server']
     );
@@ -110,14 +109,14 @@ Package.onUse(function(api) {
     ],['client']);
 
     api.addFiles(['core','MalibunPromise','fileUtils','meteorUtils','esCore','meteorAsync','globals',
-            'MongoLock','lineReader','MalibunHook','WrappedEventEmitter','MalibunStorage'
+            'lineReader','MalibunHook','MalibunStorage'
         ].map(function(name){return 'utils/server/'+name+'.js'}) ,['server']
     );
     api.export([
             'fileExists','dirExists','mkdir','readFileSync','MalibunPromise','meteorAsync','doWhile',
-            'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError','MongoLock','MongoLockPromise',
-            'lineReader','safetydance','UUID','MIME', 'CollectionPermissions','MalibunHook','WrappedEventEmitter',
-            'MalibunStorage','MalibunCache'
+            'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError',
+            'lineReader','safetydance','UUID','MIME','MalibunHook',
+            'MalibunStorage'
         ],
         ['server']
     );
@@ -135,10 +134,7 @@ Package.onUse(function(api) {
         'AutoencodingHttpClient','google','UserAgent','Antigate','RuCaptcha'],['server']);
 
     api.mainModule('stat/MalibunStats.js','server');
-    api.mainModule('stat/schema.js','server');
-    
-
-    api.addFiles(['stat/startup.js'], ['server']);
+    api.mainModule('stat/startup.js','server');
 
     api.mainModule('malibuncluster/MalibunServers.js');
 
@@ -149,7 +145,6 @@ Package.onUse(function(api) {
     api.addFiles([
         'malibuncluster/simplecluster/worker_pool.js',
         'malibuncluster/simplecluster/workers.js',
-        'malibuncluster/server/prototype.js',
         'malibuncluster/server/startup.js',
     ], ['server']);
 

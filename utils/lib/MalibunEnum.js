@@ -1,6 +1,5 @@
 /**@property {object} toSimpleSchema*/
-//@component
-class MalibunEnum{
+export class MalibunEnum{
 
     constructor(_data){
         var data = [];
@@ -71,7 +70,7 @@ class MalibunEnum{
 
 };
 
-MalibunEnumItem = class MalibunEnumItem{
+export class MalibunEnumItem{
 
     constructor(key,label){
         this._key = key;

@@ -1,3 +1,5 @@
+import {MalibunServers} from "../MalibunServers";
+
 Meteor.afterStartup(function(){
 
     if(Cluster.isMaster()){

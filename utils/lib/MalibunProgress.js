@@ -1,5 +1,4 @@
-//@component
-class MalibunProgress{
+export class MalibunProgress{
     constructor(hashOrAttributes){
         this.attributes = {};
         if(hashOrAttributes){
@@ -68,14 +67,6 @@ MalibunProgress.emitter = new EventEmitter();
 MalibunProgress.emitter.setMaxListeners(0);
 
 if(Meteor.isServer){
-    Meteor.methods({
-        newMalibunProgress:function(hash){
-            return new MalibunProgress(hash);
-        },
-        malibunProgress:function(hash){
-            return Progress.byHash(hash);
-        }
-    });
     Meteor.publish("malibunprogress", function(hash){
         var subscription = this;
         var progress = MalibunProgress.byHash(hash);
