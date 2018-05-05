@@ -64,25 +64,15 @@ Package.onUse(function(api) {
     api.use('check@1.2.5');
     api.use('aldeed:simple-schema@1.5.3');
 
-    api.mainModule('utils/lib/component.js');
-    api.mainModule('utils/lib/MalibunCache.js');
-    api.mainModule('utils/lib/MalibunEnum.js');
-    api.mainModule('utils/lib/MalibunProgress.js');
-    api.mainModule('utils/lib/MalibunController.js');
-    api.mainModule('utils/mongo/SchemaBuilder.js');
-    api.mainModule('utils/server/MongoLock.js');
-    api.mainModule('utils/server/WrappedEventEmitter.js');
-
     api.addFiles(['utils/client/esprima.min.js'],['client']);
 
     api.addFiles([
-            ,'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
+            ,'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils'
+            ,'lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
             ,'lib/roles','mongo/Schemas'
         ].map(function(name){return 'utils/'+name+'.js'})
         ,['server','client']
     );
-
-    api.mainModule('utils/mongo/MalibunCollection.js');
 
     api.export([
             'component',
@@ -108,15 +98,15 @@ Package.onUse(function(api) {
         'utils/client/spoiler/spoiler.css','utils/client/spoiler/spoiler.html','utils/client/spoiler/spoiler.js',
     ],['client']);
 
-    api.addFiles(['core','MalibunPromise','fileUtils','meteorUtils','esCore','meteorAsync','globals',
+    api.addFiles(['core','fileUtils','meteorUtils','esCore','meteorAsync','globals',
             'lineReader','MalibunHook','MalibunStorage'
         ].map(function(name){return 'utils/server/'+name+'.js'}) ,['server']
     );
     api.export([
-            'fileExists','dirExists','mkdir','readFileSync','MalibunPromise','meteorAsync','doWhile',
-            'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError',
-            'lineReader','safetydance','UUID','MIME','MalibunHook',
-            'MalibunStorage'
+            'fileExists','dirExists','mkdir','readFileSync','MalibunPromise'
+            ,'meteorAsync','doWhile','npmFs','npmOs','npmPath','npmFibers'
+            ,'inherits','TraceError','lineReader','safetydance','UUID','MIME'
+            ,'MalibunHook','MalibunStorage'
         ],
         ['server']
     );
@@ -132,11 +122,6 @@ Package.onUse(function(api) {
 
     api.export(['HttpClient','MultipartFile','HttpContext','HtmlForm','RecaptchaSolver',
         'AutoencodingHttpClient','google','UserAgent','Antigate','RuCaptcha'],['server']);
-
-    api.mainModule('stat/MalibunStats.js','server');
-    api.mainModule('stat/startup.js','server');
-
-    api.mainModule('malibuncluster/MalibunServers.js');
 
     api.addFiles([
         'malibuncluster/MalibunServerGroups.js','malibuncluster/Cluster.js',
@@ -165,7 +150,10 @@ Package.onUse(function(api) {
         ['server']
     );
 
-    api.export(['MalibunServerGroups','MalibunServers','MalibunServersModel'],['server', 'client']);
+    api.mainModule('module.server.js', 'server');
+    api.mainModule('module.client.js', 'client');
+
+    api.export(['MalibunServers','MalibunServersModel'],['server', 'client']);
 
 });
 
