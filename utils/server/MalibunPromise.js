@@ -162,7 +162,7 @@ export class MalibunPromise{
     
     isResolved() {
         return this._status != PENDING;
-    }
+    };
 
     static resolve(obj) {
         if (MalibunPromise.isPromise(obj)) {
