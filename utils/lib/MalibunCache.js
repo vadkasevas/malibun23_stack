@@ -1,5 +1,4 @@
-@component
-class MalibunCache extends EventEmitter{
+MalibunCache = class MalibunCache extends EventEmitter{
     constructor(){
         super();
         this.setMaxListeners(0);

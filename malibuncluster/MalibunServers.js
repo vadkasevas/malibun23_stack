@@ -7,8 +7,7 @@
  * @property {string} real_url
  * @property {string} group_id
  **/
-@component
-class MalibunServersModel extends MalibunModel{
+MalibunServersModel = class MalibunServersModel extends MalibunModel{
     /**@returns {ServerConfigsModel[]}*/
     get serverConfigs(){
         return ServerConfigs.find({server_id:this._id}).fetch();

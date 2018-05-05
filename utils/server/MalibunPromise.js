@@ -2,8 +2,7 @@ var PENDING = 0,
     RESOLVED = 1,
     REJECTED = 2;
 
-@component
-class MalibunPromise{
+MalibunPromise = class MalibunPromise{
     constructor(fun){
         if (typeof fun !== 'function') {
             throw new Error('MalibunPromise resolver undefined is not a function');
