@@ -134,7 +134,9 @@ Package.onUse(function(api) {
     api.export(['HttpClient','MultipartFile','HttpContext','HtmlForm','RecaptchaSolver',
         'AutoencodingHttpClient','google','UserAgent','Antigate','RuCaptcha'],['server']);
 
-    api.mainModule(['stat/MalibunStats.js','stat/schema.js'],['server']);
+    api.mainModule('stat/MalibunStats.js','server');
+    api.mainModule('stat/schema.js','server');
+    
 
     api.addFiles(['stat/startup.js'], ['server']);
 
