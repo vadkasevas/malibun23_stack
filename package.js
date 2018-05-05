@@ -153,6 +153,19 @@ Package.onUse(function(api) {
     ],['client']);
     api.export(['MalibunServerGroups','Cluster'],['server', 'client']);
 
+    api.export([
+        'SchemaBuilder','MalibunCollection','MalibunModel','MalibunController','action','MalibunAction',
+        'MalibunEnum','MalibunEnumItem','MalibunProgress','MalibunCache'
+    ]);
+
+    api.export([
+            'MongoLock','MongoLockPromise', 'CollectionPermissions','WrappedEventEmitter',
+            'MalibunCache','MalibunStats','MalibunStatsModel'
+        ],
+        ['server']
+    );
+
+    api.export(['MalibunServerGroups','MalibunServers','MalibunServersModel'],['server', 'client']);
 
 });
 
