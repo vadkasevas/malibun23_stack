@@ -77,7 +77,7 @@ Package.onUse(function(api) {
     api.export([
             'Roles','__','inspect','safe',
             'formatRuDateTime','formatRuDateTimeMS','formatRuDate','inDateRange','getNowDateRound','getNowTime','deserializeDate','deserializeDates',
-            'throttle',
+            'throttle','component',
             'cursorForEachChunked','eachCursorChunk',
             'rndInt','inRange',
 

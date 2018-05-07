@@ -21,3 +21,8 @@ throttle = function(fn, timeout, ctx) {
     };
 
 };
+
+component = function(claz){
+    this[claz]=claz;
+    return claz;
+}
