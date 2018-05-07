@@ -23,6 +23,6 @@ throttle = function(fn, timeout, ctx) {
 };
 
 component = function(claz){
-    this[claz]=claz;
+    this[claz.name]=claz;
     return claz;
 }
