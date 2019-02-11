@@ -24,7 +24,7 @@ Antigate = class Antigate{
     processFromFile(filename,requestOptions) {
         var antigate = this;
         return new MalibunPromise((resolve,reject)=>{
-            var file = MultipartFile.fromFile(filename,'file_1');
+            var file = MultipartFile.fromFile(filename,'file');
             if(!file)
                 return reject(new Error(`Ошибка при чтении файла ${filename}`));
 
@@ -141,7 +141,7 @@ Antigate = class Antigate{
             client.execute().then(function(err,content){
                 if (!err && content.statusCode === 200 && content.content) {
                     var contentType = safeGet(content,'headers.content-type','image/jpeg');
-                    var file = new MultipartFile(content.content,'file_1','file_1',contentType);
+                    var file = new MultipartFile(content.content,'file','file',contentType);
                     return resolve(file,content);
                 } else {
                     return reject(err||new Error(content));

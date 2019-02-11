@@ -54,32 +54,15 @@ meteorAsync = {
     },
 
     seq: function (fs, callback) {
-        var wrappedFs = fs.map((_f)=> {
-            return function (handler, callback) {
-                npmFibers(function () {
-                    _f.apply(null, [handler, callback]);
-                }).run();
-            };
-        });
-
-        return new MalibunPromise(function (resolve, reject) {
-            var seq = npmAsync.seq.apply(null, wrappedFs);
-            return seq({}, function (err, handler) {
-                if (callback)
-                    callback(err, handler);
-                if (err)
-                    reject(err, handler);
-                else
-                    resolve(handler);
-            });
-        });
+        return meteorAsync.seqNew(fs,callback);
     },
 
     seqNew: function (fs, callback) {
         var wrappedFs = fs.map((_f)=> {
             return function (handler, callback) {
                 var callbackWrapper = (err, fResult)=> {
-                    handler[_f.name] = fResult;
+                    if(_f.name)
+                        handler[_f.name] = fResult;
                     try {
                         callback(err, handler);
                     }catch(e){
@@ -87,6 +70,7 @@ meteorAsync = {
                         console.log('_f:',_f);
                         console.log(e.trace);
                         console.log(e);
+                        callback(e, handler);
                     }
                 };
                 npmFibers(function () {
