@@ -81,7 +81,7 @@ Package.onUse(function(api) {
             'cursorForEachChunked','eachCursorChunk',
             'rndInt','inRange',
 
-            'extend','md5','isset','objectSize','firstKey','randKey','randValue','eachObjectField','generateRandomHash','safeGet','randArrValue',
+            'extend','md5','isset','firstKey','randKey','randValue','eachObjectField','generateRandomHash','safeGet',
             'formatDate','formatRuBoolean','deserializeDate','deserializeDates','keyValueChunks','filterArray','minValue','minKey','inArray','keyValueChunks',
             'trimSlashes','getRandHash','joinObject',
 

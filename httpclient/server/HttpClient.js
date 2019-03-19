@@ -166,10 +166,10 @@ HttpClient.prototype.execute = function(){
     }
 
     var formData = null;
-    if(objectSize(this.files)>0){
+    if(_.size(this.files)>0){
         if(this.httpMethod!=HttpClient.METHOD_PUT)
             this.withHttpMethod( HttpClient.METHOD_POST );
-        if(this.postData&&objectSize(this.postData)>0){
+        if(this.postData&&_.size(this.postData)>0){
             formData = {};
             for(var postKey in this.postData){
                 formData[postKey] = this.postData[postKey];
@@ -424,7 +424,7 @@ HttpClient.prototype.withCookie = function(cookie){
 
 HttpClient.prototype.getUrl = function(){
     if(!this._url){
-        if(objectSize(this.getParams)>0) {
+        if(_size(this.getParams)>0) {
             var urlData = HttpClient.urlParser.parse(this.baseUrl, true, true);
             urlData.search = '';
             for (var get_param in this.getParams) {
@@ -440,7 +440,7 @@ HttpClient.prototype.getUrl = function(){
 HttpClient.prototype.getHttpMethod = function(){
     if(this.httpMethod)
         return this.httpMethod;
-    if( objectSize( this.postData )>0||this.files.length>0)
+    if( _.size( this.postData )>0||this.files.length>0)
         return HttpClient.METHOD_POST;
     else
         return HttpClient.METHOD_GET;
