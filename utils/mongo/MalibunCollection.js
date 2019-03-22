@@ -44,6 +44,10 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
 
     }
 
+    static byName(name){
+        return collections[name];
+    }
+
     _defineBatchInsert(){
         try{
             return super._defineBatchInsert();
@@ -178,6 +182,7 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
     }
 
 };
+MalibunCollection.collections = collections;
 MalibunCollection.emitter = new EventEmitter();
 MalibunCollection.emitter.setMaxListeners(0);
 MalibunCollection.ready = function(names,cb){
