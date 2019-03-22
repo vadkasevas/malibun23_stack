@@ -7,10 +7,8 @@
   "dependencies": {
     "@meteor-typings/simple-schema": "github:meteor-typings/simple-schema",
     "@types/meteor": "^1.4.27",
-    "@types/meteor-roles": "^1.2.31",
-    "@types/mocha": "^5.2.6",
+    "@types/node": "^11.11.3",
     "bcrypt": "^2.0.1",
-    "typescript": "*",
-    "typings": "^2.1.1"
+    "typescript": "*"
   }
 }

@@ -33,10 +33,6 @@ getNowDateRound = function(){
     return new Date(timestamp);
 };
 
-getNowTime = function(){
-    return (new Date()).getTime();
-};
-
 deserializeDate = function(dateS){
     if (typeof dateS === 'string') {
         var a = deserializeDate.reISO.exec(dateS);

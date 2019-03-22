@@ -28,6 +28,7 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
                 Meteor.publish(
                     collection._name,
                     options.publish || function (condition) {
+                        console.log(condition);
                         return collection.publishCursor(this.userId,condition);
                     }
                 );
@@ -42,6 +43,10 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
             collections[name] = this;
 
 
+    }
+
+    static byName(name){
+        return collections[name];
     }
 
     _defineBatchInsert(){
@@ -71,8 +76,8 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
             options:options
         };
         var doLog = ()=>{
-            if(this._name!='malibunLogs'&&this._name!='malibunLogsGlobal')
-                MalibunLogger.trace(MalibunLogger.TAG_SYSTEM,`publishCursor ${this._name}`,logData,userId);
+            //if(this._name!='malibunLogs'&&this._name!='malibunLogsGlobal')
+            //    MalibunLogger.trace(MalibunLogger.TAG_SYSTEM,`publishCursor ${this._name}`,logData,userId);
         };
         condition = condition || {};
         options = options||{};
@@ -198,6 +203,7 @@ MalibunCollection.ready = function(names,cb){
         });
     });
 };
+MalibunCollection.collections = collections;
 
 /**
  * @property {string} _id - ID в коллекции
