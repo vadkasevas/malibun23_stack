@@ -424,7 +424,7 @@ HttpClient.prototype.withCookie = function(cookie){
 
 HttpClient.prototype.getUrl = function(){
     if(!this._url){
-        if(_size(this.getParams)>0) {
+        if(_.size(this.getParams)>0) {
             var urlData = HttpClient.urlParser.parse(this.baseUrl, true, true);
             urlData.search = '';
             for (var get_param in this.getParams) {
