@@ -54,6 +54,9 @@ declare module 'meteor/malibun23:stack' {
         labels(fields: string[]): string[];
 
         static ready(names: string | string[], cb: Function): void;
+
+        vueMethods():void;
+        vueSchema:any;
     }
 
     export class MalibunModel<T> {
