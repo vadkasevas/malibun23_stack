@@ -250,7 +250,11 @@ Schemas.namedAutoComplete = function(label,collection,fieldName,schemaOptions,op
                 this.unblock();
                 var findOptions = limit ? {limit:limit} : {};
                 var condition = options.searchText ? {$or : [{ [fieldName]: {$regex:new RegExp(options.searchText, "i") }} ] } : {};
-                //console.log(condition);
+                if(!_.isEmpty(options.params)&&_.isObject(options.params)){
+                    _.each(options.params,(val,key)=>{
+                        condition[key]=val;
+                    });
+                }
                 if(options.values&&options.values.length>0) {
                     condition.$or = condition.$or || [];
                     condition.$or.push( { _id:{ $in: options.values} } );
