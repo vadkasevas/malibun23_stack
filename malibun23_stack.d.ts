@@ -239,3 +239,11 @@ class MalibunController {
 
     init();
 }
+
+class MongoHelper{
+    constructor(selector?:any,options?: any);
+    withOptions(opts?: any):this;
+    withAnd(selector?:any):this;
+    seletor():any;
+    options():any;
+}
