@@ -139,11 +139,11 @@ interface ISchemas {
 
 declare var Schemas: ISchemas;
 
-class SimpleSchema {
+export class SimpleSchema {
     constructor(def: any);
 }
 
-class MalibunCollection {
+export class MalibunCollection {
     schema: SimpleSchema;
 
     constructor(name: string,
@@ -181,7 +181,7 @@ class MalibunCollection {
     _ensureIndex(keys: any, options: { unique?: boolean });
 }
 
-class MalibunModel {
+export class MalibunModel {
     collection: MalibunCollection;
 
     constructor(doc: any);
@@ -191,7 +191,7 @@ class MalibunModel {
     remove();
 }
 
-class MalibunEnumItem {
+export class MalibunEnumItem {
     key: string;
     label: string;
 
@@ -202,7 +202,7 @@ class MalibunEnumItem {
     toString(): String;
 }
 
-class MalibunEnum {
+export class MalibunEnum {
     constructor(data: any);
 
     toSimpleSchema(options?: any): SimpleSchema;
@@ -212,7 +212,7 @@ class MalibunEnum {
     exclude(keys: any): MalibunEnum;
 }
 
-class MalibunCache {
+export class MalibunCache {
     has(key: string): boolean;
 
     set(key: string, value: any, ttl: number);
@@ -228,7 +228,7 @@ class MalibunCache {
     debug(): any;
 }
 
-class MalibunController {
+export class MalibunController {
     name: string;
 
     constructor(collection: MalibunCollection);
@@ -240,7 +240,7 @@ class MalibunController {
     init();
 }
 
-class MongoHelper{
+export class MongoHelper{
     constructor(selector?:any,options?: any);
     withOptions(opts?: any):this;
     withAnd(selector?:any):this;
@@ -248,7 +248,7 @@ class MongoHelper{
     options():any;
 }
 
-class MongoValidator{
+export class MongoValidator{
     constructor();
     withFieldsAllow(fields:string[]):this;
     withFieldsDisallow(fields:string[]):this;
