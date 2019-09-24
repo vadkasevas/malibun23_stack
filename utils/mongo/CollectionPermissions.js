@@ -71,16 +71,25 @@ CollectionPermissions = class CollectionPermissions{
         return undefined
     }
 
+    insert(doc,user){
+        if(this.options.insert){
+            let newDoc =  this.options.insert.apply(this.getCtx(user),[doc] );
+            if(newDoc)
+                doc = newDoc;
+        }
+        return this.collection.insert(doc);
+    }
+
     /**@returns {Mongo.Cursor}*/
     find(selector,options,user){
-        let modifier = null;
+        let $modifier = null;
         if(this.options.find){
-            modifier = this.normalizeModifier( this.options.find.apply(this.getCtx(user),[selector,options]) );
+            $modifier = this.normalizeModifier( this.options.find.apply(this.getCtx(user),[selector,options]) );
         }
-        if(!modifier){
+        if(!$modifier){
             return this.collection.find(selector,options);
         }else{
-            return this.collection.find(modifier.selector,modifier.options);
+            return this.collection.find($modifier.selector , $modifier.options);
         }
     }
 
@@ -89,16 +98,24 @@ CollectionPermissions = class CollectionPermissions{
         if(this.options.update){
             $modifier = this.normalizeModifier( this.options.update.apply( this.getCtx(user),[selector,modifier,options] ) );
         }
-        if(!modifier){
-            return this.collection.update(selector,modifoptions);
+        if(!$modifier){
+            return this.collection.update(selector,modifier,options);
         }else{
-            return this.collection.find(modifier.selector,modifier.options);
+            return this.collection.update($modifier.selector,modifier,modifier.options);
         }
     }
 
-
-
-
+    remove(selector,user){
+        let $modifier = null;
+        if(this.options.remove){
+            $modifier = this.normalizeModifier( this.options.remove.apply( this.getCtx(user),[selector] ) );
+        }
+        if(!$modifier){
+            return this.collection.remove(selector);
+        }else{
+            return this.collection.remove($modifier.selector);
+        }
+    }
 
     checkData(data,p){
         data = _.isString(data) ? {

@@ -65,7 +65,8 @@ Package.onUse(function(api) {
 
     api.addFiles('utils/mongo/MongoHelper.js');
 
-    api.addFiles('utils/mongo/CollectionPermissions.js','server');
+
+    api.addFiles('utils/mongo/MongoValidator.js','utils/mongo/CollectionPermissions.js','server');
 
 
     api.addFiles(['utils/client/esprima.min.js'],['client']);
@@ -77,6 +78,7 @@ Package.onUse(function(api) {
         ].map(function(name){return 'utils/'+name+'.js'})
         ,['server','client']
     );
+
     api.export([
             'MongoHelper',
             'Roles','__','inspect','safe',
@@ -112,6 +114,7 @@ Package.onUse(function(api) {
         ].map(function(name){return 'utils/server/'+name+'.js'}) ,['server']
     );
     api.export([
+            'MongoValidator',
             'fileExists','dirExists','mkdir','readFileSync','MalibunPromise','meteorAsync','doWhile',
             'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError','MongoLock','MongoLockPromise',
             'lineReader','safetydance','UUID','MIME', 'CollectionPermissions','MalibunHook','WrappedEventEmitter',

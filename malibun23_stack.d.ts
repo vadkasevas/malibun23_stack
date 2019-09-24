@@ -247,3 +247,13 @@ class MongoHelper{
     seletor():any;
     options():any;
 }
+
+class MongoValidator{
+    constructor();
+    withFieldsAllow(fields:string[]):this;
+    withFieldsDisallow(fields:string[]):this;
+    contains(definedField:string,$modifierField:string):boolean;
+    isOperator($key:string):boolean;
+    isAllowed($modifierField:string):boolean;
+    validate($modifier:any):boolean;
+}
