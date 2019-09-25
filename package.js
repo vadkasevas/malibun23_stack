@@ -7,6 +7,7 @@ Package.describe({
 });
 
 Npm.depends({
+    "bcrypt":"3.0.6",
     "mkdirp":"0.5.1",
     "async": "2.1.4",
     "node.extend":"1.1.6",

@@ -1,3 +1,5 @@
+import {MalibunModel, MalibunServersInterface, MalibunServersModel} from "meteor/malibun23:stack";
+
 declare module 'meteor/mongo'{
     import {SimpleSchema} from 'meteor/aldeed:simple-schema';
     namespace Mongo{
@@ -54,6 +56,9 @@ declare module 'meteor/malibun23:stack' {
         labels(fields: string[]): string[];
 
         static ready(names: string | string[], cb: Function): void;
+
+        vueMethods():void;
+        vueSchema:any;
     }
 
     export class MalibunModel<T> {
@@ -75,8 +80,6 @@ declare module 'meteor/malibun23:stack' {
         ensureDir(file:string):string;
     }
     export const MalibunStorage:IMalibunStorage;
-
-
 
     interface ISchemas {
         errors: {
@@ -129,6 +132,17 @@ declare module 'meteor/malibun23:stack' {
 
     var Schemas: ISchemas;
 
+    export class MalibunServersModel extends MalibunModel{
+        serverConfigs:any[];
+    }
+    class MalibunServersInterface extends MalibunCollection<MalibunServersModel>{
+        connections:object;
+        schemaDef:object;
+        current(cb:Function):MalibunServersModel;
+        isMaster():boolean;
+    }
+
+    export const MalibunServers:MalibunServersInterface;
 
     class MalibunEnumItem {
         key: string;

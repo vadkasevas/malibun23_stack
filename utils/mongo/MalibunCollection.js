@@ -41,7 +41,8 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
 
         if(name)
             collections[name] = this;
-
+        this._schema=null;
+        this._vueSchema = null;
 
     }
 
@@ -171,6 +172,7 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
             return self.schema.label(field);
         });
     }
+
     get schema(){
         return this._schema;
     }
@@ -181,6 +183,15 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
         this.ready = true;
         MalibunCollection.emitter.emit(`${this._name}.ready`);
     }
+
+    get vueSchema(){
+        return this._vueSchema;
+    }
+
+    set vueSchema(vueSchema){
+        this._vueSchema=vueSchema;
+    }
+
 
 };
 MalibunCollection.emitter = new EventEmitter();
