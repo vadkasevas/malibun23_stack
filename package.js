@@ -66,7 +66,7 @@ Package.onUse(function(api) {
     api.addFiles('utils/mongo/MongoHelper.js');
 
 
-    api.addFiles('utils/mongo/MongoValidator.js','utils/mongo/CollectionPermissions.js','server');
+    api.addFiles(['utils/mongo/MongoValidator.js','utils/mongo/CollectionPermissions.js'],'server');
 
 
     api.addFiles(['utils/client/esprima.min.js'],['client']);
