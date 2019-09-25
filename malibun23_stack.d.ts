@@ -195,6 +195,24 @@ declare module 'meteor/malibun23:stack' {
         static isPromise(obj:any):Boolean;
     }
 
+    export class MongoHelper{
+        constructor(selector?:any,options?: any);
+        withOptions(opts?: any):this;
+        withAnd(selector?:any):this;
+        seletor():any;
+        options():any;
+    }
+
+    export class MongoValidator{
+        constructor();
+        withFieldsAllow(fields:string[]):this;
+        withFieldsDisallow(fields:string[]):this;
+        contains(definedField:string,$modifierField:string):boolean;
+        isOperator($key:string):boolean;
+        isAllowed($modifierField:string):boolean;
+        validate($modifier:any):boolean;
+    }
+
     export function clearHelperArguments(): any;
 
     export function combineClasses(baseClass, ...mixins): any;
