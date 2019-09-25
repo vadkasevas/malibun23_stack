@@ -62,7 +62,10 @@ Package.onUse(function(api) {
     api.use('aldeed:autoform@5.8.1','client');
     api.use('check@1.2.5');
     api.use('aldeed:simple-schema@1.5.3');
-    api.addFiles('utils/mongo/CollectionPermissions.js','server');
+
+    api.addFiles('utils/mongo/MongoHelper.js');
+
+    api.addFiles(['utils/mongo/MongoValidator.js','utils/mongo/CollectionPermissions.js'],'server');
 
 
     api.addFiles(['utils/client/esprima.min.js'],['client']);
@@ -75,6 +78,7 @@ Package.onUse(function(api) {
         ,['server','client']
     );
     api.export([
+            'MongoHelper',
             'Roles','__','inspect','safe',
             'formatRuDateTime','formatRuDateTimeMS','formatRuDate','inDateRange','getNowDateRound','deserializeDate','deserializeDates',
             'throttle','component',
@@ -104,6 +108,7 @@ Package.onUse(function(api) {
         ].map(function(name){return 'utils/server/'+name+'.js'}) ,['server']
     );
     api.export([
+            'MongoValidator',
             'fileExists','dirExists','mkdir','readFileSync','MalibunPromise','meteorAsync','doWhile',
             'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError',
             'safetydance','UUID','MIME', 'CollectionPermissions','MalibunHook','WrappedEventEmitter',
