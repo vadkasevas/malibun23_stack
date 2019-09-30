@@ -34,7 +34,7 @@ CollectionPermissions = class CollectionPermissions{
             get: function() { return $userId; },
             enumerable: true,
             configurable: false,
-            writable:false
+            //writable:false
         });
         Object.defineProperty(ctx, '$user', {
             get: function() {
@@ -45,7 +45,7 @@ CollectionPermissions = class CollectionPermissions{
             },
             enumerable: true,
             configurable: false,
-            writable:false
+            //writable:false
         });
         return ctx;
     }
