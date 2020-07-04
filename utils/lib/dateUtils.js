@@ -2,18 +2,33 @@ formatDate = function(date,format){
     return moment(date).tz('Europe/Moscow').format(format);
 };
 
+/**
+ * Форматирует дату до секунд (пример 2020-01-01 00:00:00)
+ * @param {Date} date Дата для форматирования
+ * @returns {string}
+ * */
 formatRuDateTime = function(date) {
     if(!date)
         return 'Не определено';
     return moment(date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss');
 };
 
+/**
+ * Форматирует дату до милисекунд (пример 2020-01-01 00:00:00 000)
+ * @param {Date} date Дата для форматирования
+ * @returns {string}
+ * */
 formatRuDateTimeMS = function(date) {
     if(!date)
         return 'Не определено';
     return moment(date).tz('Europe/Moscow').format('YYYY-MM-DD HH:mm:ss SSS');
 };
 
+/**
+ * Форматирует дату до дня (пример 2020-01-01)
+ * @param {Date} date Дата для форматирования
+ * @returns {string}
+ * */
 formatRuDate = function(date) {
     if(!date)
         return 'Не определено';

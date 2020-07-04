@@ -1,6 +1,11 @@
 var inherits = Npm.require('util').inherits;
 var HttpsAgentKeepAlive = Npm.require('agentkeepalive').HttpsAgent;
 
+/**
+ * Класс для выполнения HTTP запросов
+ * @class
+ * @param {string} url Базовый URL запроса
+ * */
 HttpClient = function(url){
     this.baseUrl = url;
     this._url = '';
@@ -31,7 +36,42 @@ HttpClient = function(url){
     this.setMaxListeners(50);
 };
 inherits(HttpClient, EventEmitter);
+/**
+ * @name HttpClient~Proxy
+ * @property {string} ip
+ * @property {string} login логин для авторизации
+ * @property {string} pass пароль прокси
+ * @property {('http'|'https'|'socks'|'socks5')} protocol Протокол прокси
+ *
+ * */
 
+/**
+ * Опции фабрики HttpClient
+ * @name HttpClient~options
+ * @property {string} url Базовый URL запроса
+ * @property {Class<HttpClient>} clientClass Класс клиента, HttpClient по умолчанию
+ * @property {string[]|object} headers HTTP заголовки
+ * @property {object[]|object} cookies Куки
+ * @property {HttpClient~Proxy} proxy Прокси сервер
+ * @property {string} httpMethod HTTP метод запроса
+ * @property {object} postData Данные для POST запроса
+ * @property {string} formContentType Content-type запроса
+ * @property {boolean} followLocation Переходить по редиректам
+ * @property {number} timeout Таймаут запроса, мс
+ * @property {boolean} gzip Ожидается gzipped ответ
+ * @property {string} encoding Кодировка ответа
+ * @property {object} getParams Параметры GET
+ */
+
+/**
+ * @method
+ * @static
+ * @memberOf HttpClient
+ * @name forOptions
+ * @description Функция-фабрика HttpClient для указанных опций
+ * @param {HttpClient~options} options
+ * @returns {HttpClient}
+ * */
 HttpClient.forOptions = function(options){
     var clientClass = options.clientClass || HttpClient;
     var client = new clientClass(options.url);

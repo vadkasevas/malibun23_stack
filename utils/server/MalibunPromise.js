@@ -1,7 +1,10 @@
 var PENDING = 0,
     RESOLVED = 1,
     REJECTED = 2;
-
+/**
+ * Promise, callback которого выполняется внутри  {@link https://www.npmjs.com/package/fibers|Fibers}
+ * @see {@link https://guide.meteor.com/using-npm-packages.html#bind-environment|Meteor bind environment}
+ * */
 MalibunPromise = class MalibunPromise{
     constructor(fun){
         if (typeof fun !== 'function') {
@@ -96,6 +99,10 @@ MalibunPromise = class MalibunPromise{
         }
     };
 
+    /**
+     * Навешивает обработчик при завершении
+     * @param {MalibunPromise~callback} cb  callback при завершении
+     * */
     finally(cb, ctx) {
         if (ctx)
             cb.bind(ctx);
@@ -187,6 +194,12 @@ MalibunPromise = class MalibunPromise{
     };
 }
 
+/**
+ * Обработчик при завершении
+ * @callback MalibunPromise~callback
+ * @param {Error|null} err Ошибка
+ * @param result Результат
+ */
 MalibunPromise.PENDING = PENDING;
 MalibunPromise.RESOLVED = RESOLVED;
 MalibunPromise.REJECTED = REJECTED;

@@ -3,8 +3,12 @@ Meteor.emptyCursor = EmptyCollection.find();
 
 var collections = {};
 
-/**@extends {Mongo.Collection}
- * @property {SimpleSchema} schema
+/**
+ * Класс mongo коллекции  {@link https://docs.meteor.com/api/collections.html|Meteor Mongo.Collection}
+ * @category models
+ * @class
+ * @extends Mongo.Collection
+ * @see {@link https://docs.meteor.com/api/collections.html|Meteor Mongo.Collection}
  **/
 MalibunCollection = class MalibunCollection extends Mongo.Collection{
     constructor(name,options){
@@ -45,6 +49,9 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
 
     }
 
+    /**
+     * Получить коллекцию по имени mongo
+     * */
     static byName(name){
         return collections[name];
     }
@@ -57,6 +64,10 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
         }
     }
 
+    /**
+     * Подписываемся на изменения по указанному условию
+     * @param {object} condition Mongo селектор
+     * */
     subscribe(condition){
         return Meteor.subscribe(this._name,condition || {});
     }
@@ -65,11 +76,21 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
         return this.findOne({_id:id});
     }
 
+    /**
+     * Добавляем документ в коллекцию и возвращаем найденный документ из коллекции
+     * @param {object} doc Документ
+     * */
     insertAndGet(doc){
         var _id = this.insert(doc);
         return this.findOne({_id:_id});
     }
 
+    /**
+     * Возвращаем курсор mongo с учетом прав пользователя
+     * @param {string} userId ID пользователя
+     * @param {object} condition Mongo селектор
+     * @param {object} options Опции
+     * */
     publishCursor(userId,condition,options){
         var logData = {
             condition1:condition,
@@ -135,6 +156,12 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
         return Meteor.emptyCursor;
     }
 
+    /**
+     * Возвращаем курсор mongo пагинации для обычного пользователя
+     * @param {Meteor.Pagination} pagination Объект пагинации
+     * @param {number} skip Кол-во пропущенных записей с начала
+     * @param {Subscription} sub Опции подписки
+     * */
     userAuth(pagination,skip,sub){
         var condition = safeGet( pagination.userSettings,`${sub.connection.id}.filters` , {} );
         var userIdField = safeGet(this.permissions,'permissions.userIdField');
@@ -149,6 +176,12 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
         return this.publishCursor( sub.userId ? Meteor.currentUserId(sub.userId) : null ,condition,options);
     }
 
+    /**
+     * Возвращаем курсор mongo пагинации для администратора
+     * @param {Meteor.Pagination} pagination Объект пагинации
+     * @param {number} skip Кол-во пропущенных записей с начала
+     * @param {Subscription} sub Опции подписки
+     * */
     adminAuth(pagination,skip,sub){
         if(!Meteor.userIdIsAdmin(sub.userId))
             return Meteor.emptyCursor;
@@ -165,6 +198,9 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
         return this.publishCursor(userId,condition,options);
     }
 
+    /**
+     * Отображаемые имена переданных полей
+     * */
     labels(fields){
         var self = this;
         return fields.map(function(field){
@@ -172,6 +208,9 @@ MalibunCollection = class MalibunCollection extends Mongo.Collection{
         });
     }
 
+    /**
+     * SimpleSchema
+     * */
     get schema(){
         return this._schema;
     }
@@ -226,7 +265,10 @@ MalibunModel = class MalibunModel{
     get collection(){
         return this.constructor.collection;
     }
-    /**@param {string|Array|object} update*/
+    /**
+     * Выполняет изменение объекта и сохранение в БД
+     * @param {string|Array|object} update
+     * */
     update(update){
         var newValues=update;
         var model = this;
@@ -248,6 +290,7 @@ MalibunModel = class MalibunModel{
         return this.collection.update({_id: this._id}, {$set: newValues}, {multi: false, validate: false});
     }
 
+    /**Удаляем документ*/
     remove(){
         return this.collection.remove({_id:this._id});
     }

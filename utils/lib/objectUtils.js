@@ -47,6 +47,7 @@ if(Meteor.isServer){
     }
 }
 
+/**Возвращает MD5 хэш переданного значения*/
 md5 = function(s){
     return CryptoJS.MD5(String(s)).toString();
 };
@@ -144,6 +145,12 @@ formatRuBoolean = function (val) {
         return 'Нет';
 };
 
+/**
+ * Аналог {@link https://lodash.com/docs/4.17.15#get|lodash get} за исключением доступа к элементам массива, элемент массива получается по ключу вида 'arr.0'
+ * @param obj Объект, значение которого хотим получить
+ * @param {string|string[]} props Путь к значению внутри объекта
+ * @param defaultValue Значение по умолчанию
+ * */
 safeGet = function safeGet (obj, props, defaultValue) {
     if (obj === undefined || obj === null) {
         return defaultValue;

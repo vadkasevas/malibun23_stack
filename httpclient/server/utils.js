@@ -29,6 +29,7 @@ randArrValue = function(arr){
     return null;
 };
 
+/**Вернет true, если переданный obj!==undefined */
 isset = function(obj){
     return obj===null || typeof(obj)!=='undefined';
 };

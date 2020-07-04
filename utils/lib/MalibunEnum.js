@@ -1,4 +1,6 @@
-/**@property {object} toSimpleSchema*/
+/**
+ * Класс перечисления
+ * */
 MalibunEnum = class MalibunEnum{
 
     constructor(_data){
@@ -37,6 +39,9 @@ MalibunEnum = class MalibunEnum{
         });
     }
 
+    /**
+     * Преобразует перечисление в схему SimpleSchema
+     * */
     toSimpleSchema(extOptions){
         var schema = {
             type:String,
@@ -50,7 +55,10 @@ MalibunEnum = class MalibunEnum{
         return Schemas.addOptions(schema,extOptions);
     }
 
-    /**@returns {MalibunEnumItem}*/
+    /**
+     * Первый элемент перечисления
+     * @returns {MalibunEnumItem}
+     * */
     first(){
         if(this.keys.length>0) {
             var result = this[this.keys[0]];
@@ -58,7 +66,11 @@ MalibunEnum = class MalibunEnum{
         }
     }
 
-    /**@returns {MalibunEnum}*/
+    /**
+     * Возвращает новый объект перечисления за исключением переданного ключа или ключей
+     * @param {string|string[]} keys Исключаемые ключи или ключ
+     * @returns {MalibunEnum}
+     * */
     exclude(keys){
         if(!_.isArray(keys))
             keys = [String(keys)];
@@ -70,6 +82,9 @@ MalibunEnum = class MalibunEnum{
 
 };
 
+/**
+ * Элементы перечисления
+ * */
 MalibunEnumItem = class MalibunEnumItem{
 
     constructor(key,label){
@@ -77,10 +92,15 @@ MalibunEnumItem = class MalibunEnumItem{
         this._label = label;
     }
 
-    /**@returns {string}*/
+    /**
+     * Ключ
+     * @returns {string}
+     * */
     get key(){
         return this._key;
     }
+
+    /**Отображаемый текст*/
     get label(){
         return this._label;
     }
