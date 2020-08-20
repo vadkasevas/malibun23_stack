@@ -9,7 +9,7 @@
     "@types/meteor": "^1.4.27",
     "@types/meteor-roles": "^1.2.31",
     "@types/mocha": "^5.2.6",
-    "bcrypt": "^2.0.1",
+    "bcrypt": "^5.0.0",
     "typescript": "*",
     "typings": "^2.1.1"
   }
