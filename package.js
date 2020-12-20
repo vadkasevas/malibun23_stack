@@ -7,6 +7,7 @@ Package.describe({
 });
 
 Npm.depends({
+    "bcrypt":"3.0.6",
     "mkdirp":"0.5.1",
     "async": "2.1.4",
     "node.extend":"1.1.6",
@@ -62,33 +63,37 @@ Package.onUse(function(api) {
     api.use('aldeed:autoform@5.8.1','client');
     api.use('check@1.2.5');
     api.use('aldeed:simple-schema@1.5.3');
-    api.addFiles('utils/mongo/CollectionPermissions.js','server');
+
+    api.addFiles('utils/mongo/MongoHelper.js');
+
+    api.addFiles(['utils/mongo/MongoValidator.js','utils/mongo/CollectionPermissions.js'],'server');
 
 
     api.addFiles(['utils/client/esprima.min.js'],['client']);
 
     api.addFiles([
-            'lib/globals','lib/host','lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils','lib/objectUtils','lib/stringUtils','lib/startup','lib/safe'
-            ,'lib/roles','lib/malibunController'
+            'lib/globals', 'lib/dateUtils','lib/meteorUtils','lib/mongoUtils','lib/numberUtils'
+            ,'lib/objectUtils','lib/stringUtils','lib/startup','lib/safe','lib/roles'
             ,'mongo/SchemaBuilder','mongo/MalibunCollection','mongo/Schemas','lib/MalibunEnum','lib/MalibunProgress','lib/MalibunCache'
         ].map(function(name){return 'utils/'+name+'.js'})
         ,['server','client']
     );
     api.export([
+            'MongoHelper',
             'Roles','__','inspect','safe',
-            'formatRuDateTime','formatRuDateTimeMS','formatRuDate','inDateRange','getNowDateRound','getNowTime','deserializeDate','deserializeDates',
+            'formatRuDateTime','formatRuDateTimeMS','formatRuDate','inDateRange','getNowDateRound','deserializeDate','deserializeDates',
             'throttle','component',
             'cursorForEachChunked','eachCursorChunk',
             'rndInt','inRange',
 
-            'extend','md5','isset','objectSize','firstKey','randKey','randValue','eachObjectField','generateRandomHash','safeGet','randArrValue',
+            'extend','md5','isset','randKey','randValue','eachObjectField','generateRandomHash','safeGet',
             'formatDate','formatRuBoolean','deserializeDate','deserializeDates','keyValueChunks','filterArray','minValue','minKey','inArray','keyValueChunks',
             'trimSlashes','getRandHash','joinObject',
 
-            'trim','generateRndString','formatRuBoolean','stringify','unicode','htmlspecialchars_decode','htmlspecialchars_encode','capitalize','firstLower','preg_match_all',
+            'trim','generateRndString','formatRuBoolean','stringify','unicode','htmlspecialchars_decode','htmlspecialchars_encode','capitalize','firstLower',
             'parse_cookies',
 
-            'SchemaBuilder', 'Schemas','MalibunCollection','MalibunModel','MalibunController','action','MalibunAction',
+            'SchemaBuilder', 'Schemas','MalibunCollection','MalibunModel',
 
             'MalibunEnum','MalibunEnumItem','MalibunProgress',
 
@@ -98,19 +103,16 @@ Package.onUse(function(api) {
         ]
         , ['client', 'server']
     );
-    api.addFiles([
-        'utils/client/helpers/globalHelpers.js','utils/client/deleteButton.html','utils/client/deleteButton.events.js',
-        'utils/client/spoiler/spoiler.css','utils/client/spoiler/spoiler.html','utils/client/spoiler/spoiler.js',
-    ],['client']);
 
     api.addFiles(['core','MalibunPromise','fileUtils','meteorUtils','esCore','meteorAsync','globals',
-            'MongoLock','lineReader','MalibunHook','WrappedEventEmitter','MalibunStorage'
+            'MalibunHook','WrappedEventEmitter','MalibunStorage'
         ].map(function(name){return 'utils/server/'+name+'.js'}) ,['server']
     );
     api.export([
+            'MongoValidator',
             'fileExists','dirExists','mkdir','readFileSync','MalibunPromise','meteorAsync','doWhile',
-            'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError','MongoLock','MongoLockPromise',
-            'lineReader','safetydance','UUID','MIME', 'CollectionPermissions','MalibunHook','WrappedEventEmitter',
+            'npmFs','npmOs','npmPath','npmFibers','inherits','TraceError',
+            'safetydance','UUID','MIME', 'CollectionPermissions','MalibunHook','WrappedEventEmitter',
             'MalibunStorage','MalibunCache'
         ],
         ['server']
@@ -119,18 +121,13 @@ Package.onUse(function(api) {
     api.addFiles(['utils/client/Base64.js','utils/client/pretty.js'],['client']);
     api.export(['Base64','pretty'],['client']);
 
-    api.addFiles(['httpcall','HttpClient','MultipartFile','utils','waitFreeProxies'
+    api.addFiles(['httpcall','HttpClient','MultipartFile','utils'
         ,'httpAgent','overrideDns','HttpContext'
-        ,'HtmlForm','RecaptchaSolver','Google',
-        'AutoencodingHttpClient','queue','UserAgent','captcha/Antigate','captcha/RuCaptcha'
+        ,'AutoencodingHttpClient'
     ].map(function(name){return 'httpclient/server/'+name+'.js'}) ,['server']);
 
-    api.export(['HttpClient','MultipartFile','HttpContext','HtmlForm','RecaptchaSolver',
-        'AutoencodingHttpClient','google','UserAgent','Antigate','RuCaptcha'],['server']);
-
-    api.addFiles(['stat/MalibunStats.js','stat/schema.js'], ['server', 'client']);
-    api.addFiles(['stat/startup.js'], ['server']);
-    api.export(['MalibunStats','MalibunStatsModel'],['server']);
+    api.export(['HttpClient','MultipartFile','HttpContext',
+        'AutoencodingHttpClient'],['server']);
 
     api.addFiles([
         'malibuncluster/MalibunServerGroups.js', 'malibuncluster/MalibunServers.js','malibuncluster/Cluster.js',
@@ -143,19 +140,15 @@ Package.onUse(function(api) {
         'malibuncluster/server/startup.js',
     ], ['server']);
 
-    api.addFiles([
-        'malibuncluster/client/helpers.js'
-    ],['client']);
     api.export(['MalibunServerGroups','Cluster','MalibunServers','MalibunServersModel'],['server', 'client']);
 
     api.export([
-        'SchemaBuilder','MalibunCollection','MalibunModel','MalibunController','action','MalibunAction',
+        'SchemaBuilder','MalibunCollection','MalibunModel',
         'MalibunEnum','MalibunEnumItem','MalibunProgress','MalibunCache'
     ]);
 
     api.export([
-            'MongoLock','MongoLockPromise', 'CollectionPermissions','WrappedEventEmitter',
-            'MalibunCache','MalibunStats','MalibunStatsModel'
+            'CollectionPermissions','WrappedEventEmitter','MalibunCache'
         ],
         ['server']
     );

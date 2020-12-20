@@ -52,7 +52,7 @@ md5 = function(s){
 };
 
 getRandHash = function(){
-    return md5( new Meteor.Collection.ObjectID()._str+getNowTime() );
+    return md5( new Meteor.Collection.ObjectID()._str+Date.now() );
 };
 
 stringify = function(obj){
@@ -75,20 +75,6 @@ isset = function(obj){
     return obj===null || typeof(obj)!=='undefined';
 };
 
-objectSize = function (obj) {
-    var size = 0, key;
-    for (key in obj) {
-        size++;
-    }
-    return size;
-};
-
-firstKey = function(obj) {
-    for (var a in obj)
-        return a;
-    return null;
-};
-
 randKey = function(object){
     var keys = [];
     for(var key in object){
@@ -104,25 +90,6 @@ randValue = function(object){
     var _randKey = randKey(object);
     if(_randKey&&typeof (object[_randKey]) !='undefined'){
         return object[_randKey];
-    }
-    return null;
-};
-
-randArrValue = function(arr){
-    if(!arr||arr.length==0)
-        return null;
-    return _.sample(arr);
-    var key = Math.floor(Math.random() * arr.length);
-    if(isset(arr[key]))
-        return arr[key];
-    else {
-        var keys = [];
-        _.each(arr, function (value, key) {
-            keys.push(key);
-        });
-        if(keys.length>0){
-            return  arr[Math.floor(Math.random() * keys.length)];
-        }
     }
     return null;
 };
@@ -251,12 +218,12 @@ keyValueChunks = function(objOrArray,key,size){
         var assockChunk = {};
         for(var propKey in objOrArray){
             assockChunk[objOrArray[propKey][key]] = objOrArray[propKey];
-            if(objectSize(assockChunk)>=size){
+            if(_.size(assockChunk)>=size){
                 result.push(assockChunk);
                 assockChunk = {};
             }
         }
-        if(objectSize(assockChunk)>0&&objectSize(assockChunk)<size){
+        if(_.size(assockChunk)>0&&_.size(assockChunk)<size){
             result.push(assockChunk);
         }
     }
@@ -311,12 +278,12 @@ keyValueChunks = function(objOrArray,key,size){
         var assockChunk = {};
         for(var propKey in objOrArray){
             assockChunk[objOrArray[propKey][key]] = objOrArray[propKey];
-            if(objectSize(assockChunk)>=size){
+            if(_.size(assockChunk)>=size){
                 result.push(assockChunk);
                 assockChunk = {};
             }
         }
-        if(objectSize(assockChunk)>0&&objectSize(assockChunk)<size){
+        if(_.size(assockChunk)>0&&_.size(assockChunk)<size){
             result.push(assockChunk);
         }
     }

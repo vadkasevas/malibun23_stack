@@ -66,22 +66,6 @@ firstLower = function(string){
     return string.charAt(0).toLowerCase() + string.slice(1);
 };
 
-preg_match_all = function(re,s){
-    var result = [];
-    var matches;
-    var key = -1;
-    while ((matches = re.exec(s)) != null){
-        key++;
-        _.each(matches,function(m,mk){
-            result[mk] = result[mk] || [];
-            result[mk][key] = m;
-        });
-    }
-    if(result.length>0)
-        return result;
-    return null;
-};
-
 parse_cookies=function(s){
     var result = {};
     if(!s||!_.isString(s))
