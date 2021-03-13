@@ -153,7 +153,7 @@ HttpClient.prototype.execute = function(){
     //console.log('url:',url);
     HttpClient.listener.emit('beforeExecute',this,url);
     this.emit('beforeExecute');
-    
+
     HttpClient.totalCount++; HttpClient.handlersCount++;
 
     var httpOptions = {timeout:this.timeout,followRedirects:false,
@@ -414,6 +414,9 @@ HttpClient.prototype.withGetParam = function(key,val){
 };
 
 HttpClient.prototype.withHeader = function(hKey,hVal,safe){
+    if ((_.isBoolean(hVal)||hVal===undefined)&&hKey.indexOf(':')>-1){
+        let splitted = hKey.split(':',2);
+    }
     if(!safe||!this.hasHeader(hKey))
         this.headers[hKey] = hVal;
     return this;
