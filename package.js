@@ -126,14 +126,14 @@ Package.onUse(function(api) {
     api.addFiles(['utils/client/Base64.js','utils/client/pretty.js'],['client']);
     api.export(['Base64','pretty'],['client']);
 
-    api.addFiles(['httpcall','HttpClient','MultipartFile','utils','waitFreeProxies'
+    api.addFiles(['httpcall','HttpClient','MultipartFile','utils'
         ,'httpAgent','overrideDns','HttpContext'
-        ,'HtmlForm','RecaptchaSolver','Google',
-        'AutoencodingHttpClient','queue','UserAgent','captcha/Antigate','captcha/RuCaptcha'
+        ,'HtmlForm',
+        'AutoencodingHttpClient','queue','UserAgent'
     ].map(function(name){return 'httpclient/server/'+name+'.js'}) ,['server']);
 
-    api.export(['HttpClient','MultipartFile','HttpContext','HtmlForm','RecaptchaSolver',
-        'AutoencodingHttpClient','google','UserAgent','Antigate','RuCaptcha'],['server']);
+    api.export(['HttpClient','MultipartFile','HttpContext','HtmlForm',
+        'AutoencodingHttpClient','UserAgent'],['server']);
 
     api.addFiles(['stat/MalibunStats.js','stat/schema.js'], ['server', 'client']);
     api.addFiles(['stat/startup.js'], ['server']);
